@@ -41,6 +41,20 @@ auth.fetchUser();
           <span class="font-semibold">{{ alert.driver }}</span> -
           <span>{{ alert.vehicle }}</span> -
           <span class="text-gray-600">Vence: {{ alert.end_date }}</span>
+          <span class="ml-2 text-blue-700">Deuda: ${{ Number(alert.debt).toFixed(2) }}</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Alquileres vencidos -->
+    <div v-if="expired.length" class="mb-8">
+      <h2 class="text-lg font-semibold mb-2 text-orange-600">Alquileres vencidos</h2>
+      <ul class="bg-white rounded shadow p-4">
+        <li v-for="exp in expired" :key="exp.id" class="mb-2">
+          <span class="font-semibold">{{ exp.driver }}</span> -
+          <span>{{ exp.vehicle }}</span> -
+          <span class="text-gray-600">Venció: {{ exp.end_date }}</span>
+          <span class="ml-2 text-blue-700">Deuda: ${{ Number(exp.debt).toFixed(2) }}</span>
         </li>
       </ul>
     </div>
@@ -63,6 +77,7 @@ import { useAuthStore } from '../stores/auth';
 const auth = useAuthStore();
 const stats = ref({ vehicles: 0, drivers: 0, rentals: 0 });
 const alerts = ref([]);
+const expired = ref([]);
 
 const getRentalEndDate = (rental) => {
   if (!rental.start_date || !rental.type) return null;
@@ -88,19 +103,42 @@ const loadStats = async () => {
   // Alertas: alquileres activos que vencen en los próximos 7 días
   const now = new Date();
   const soon = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
-  alerts.value = rentalsRes.data
+  const calcDebt = (r) => {
+    if (!r.start_date || !r.type) return 0;
+    const start = new Date(r.start_date);
+    const now = new Date();
+    let periods = 0;
+    if (r.type === 'semanal') {
+      periods = Math.floor((now - start) / (7 * 24 * 60 * 60 * 1000));
+    } else if (r.type === 'quincenal') {
+      periods = Math.floor((now - start) / (15 * 24 * 60 * 60 * 1000));
+    } else if (r.type === 'mensual') {
+      periods = (now.getFullYear() - start.getFullYear()) * 12 + (now.getMonth() - start.getMonth());
+      if (now.getDate() < start.getDate()) periods--;
+    }
+    const expected = periods * (parseFloat(r.amount) || 0);
+    const paid = (r.payments || []).reduce((sum, p) => sum + parseFloat(p.amount || 0), 0);
+    return Math.max(expected - paid, 0);
+  };
+  const rentalsWithEnd = rentalsRes.data
     .filter(r => r.active)
     .map(r => ({
       id: r.id,
       driver: r.driver?.name || 'Sin conductor',
       vehicle: r.vehicle?.plate || 'Sin vehículo',
       end_date: getRentalEndDate(r),
-    }))
-    .filter(r => {
-      if (!r.end_date) return false;
-      const end = new Date(r.end_date);
-      return end >= now && end <= soon;
-    });
+      debt: calcDebt(r),
+    }));
+  alerts.value = rentalsWithEnd.filter(r => {
+    if (!r.end_date) return false;
+    const end = new Date(r.end_date);
+    return end >= now && end <= soon;
+  });
+  expired.value = rentalsWithEnd.filter(r => {
+    if (!r.end_date) return false;
+    const end = new Date(r.end_date);
+    return end < now && Number(r.debt) > 0;
+  });
 };
 
 onMounted(() => {

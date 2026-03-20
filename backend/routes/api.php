@@ -29,4 +29,5 @@ Route::middleware('auth:sanctum')->group(function () {
     // Payments
     Route::get('/payments', [PaymentController::class, 'index']);
     Route::post('/payments', [PaymentController::class, 'store']);
+    Route::post('/payments/send-receipt', [PaymentController::class, 'sendReceipt']);
 });

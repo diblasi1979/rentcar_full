@@ -27,3 +27,12 @@ npm run dev
 
 API: http://localhost:8000/api
 Frontend: http://localhost:5173
+
+## base de datos de Mysql
+
+#levantar los servicio
+brew services start mysql
+
+# Iniciar secion
+mysql -u root -p
+

@@ -5,9 +5,30 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Payment;
+use App\Mail\PaymentReceipt;
+use Illuminate\Support\Facades\Mail;
+use App\Models\Rental;
+use App\Models\Driver;
+use App\Models\Vehicle;
 
 class PaymentController extends Controller
 {
+    public function sendReceipt(Request $request)
+    {
+        $data = $request->validate([
+            'payment_id' => 'required|integer|exists:payments,id',
+            'email' => 'required|email',
+        ]);
+
+        $payment = Payment::with('rental.driver', 'rental.vehicle')->findOrFail($data['payment_id']);
+        $rental = $payment->rental;
+        $driver = $rental->driver;
+        $vehicle = $rental->vehicle;
+
+        Mail::to($data['email'])->send(new PaymentReceipt($payment, $rental, $driver, $vehicle));
+
+        return response()->json(['status' => 'ok']);
+    }
     public function store(Request $request)
     {
 

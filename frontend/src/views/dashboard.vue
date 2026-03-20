@@ -11,25 +11,36 @@ auth.fetchUser();
 </template> -->
 
 <template>
-  <div class="p-6">
-    <h1 class="text-2xl font-bold mb-2">
-      Bienvenido {{ auth.user?.name }}
-    </h1>
-    <p class="text-gray-500 mb-6">Sistema de alquiler de vehículos</p>
+  <div class="p-6 bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 min-h-0 flex-1 flex flex-col">
+    <!-- Botones arriba y centrados -->
+    <div class="flex flex-wrap justify-center gap-3 mb-8">
+      <router-link to="/drivers" class="text-white bg-orange-500 px-6 py-3 rounded-xl shadow-md font-semibold text-lg transition-all duration-200 hover:bg-orange-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-orange-300">Conductores</router-link>
+      <router-link to="/vehicles" class="text-white bg-yellow-500 px-6 py-3 rounded-xl shadow-md font-semibold text-lg transition-all duration-200 hover:bg-yellow-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-300">Vehículos</router-link>
+      <router-link to="/rentals" class="text-white bg-red-400 px-6 py-3 rounded-xl shadow-md font-semibold text-lg transition-all duration-200 hover:bg-red-500 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-200">Alquileres</router-link>
+      <router-link to="/payments" class="text-white bg-pink-500 px-6 py-3 rounded-xl shadow-md font-semibold text-lg transition-all duration-200 hover:bg-pink-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-300">Pagos</router-link>
+    </div>
+
+    <p class="text-gray-500 mb-6 text-center">Indicadores Generales del sistema</p>
 
     <!-- Estadísticas -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
       <div class="bg-white rounded shadow p-6 flex flex-col items-center">
+        <!-- Icono vehículo -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mb-2 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 13l2-5a2 2 0 012-1h10a2 2 0 012 1l2 5M5 13v4a1 1 0 001 1h1a1 1 0 001-1v-1h8v1a1 1 0 001 1h1a1 1 0 001-1v-4M7 16h.01M17 16h.01" /></svg>
         <span class="text-4xl font-bold text-blue-600">{{ stats.vehicles }}</span>
-        <span class="text-gray-700 mt-2">Vehículos</span>
+        <span class="text-blue-600 mt-2 font-semibold">Vehículos</span>
       </div>
       <div class="bg-white rounded shadow p-6 flex flex-col items-center">
-        <span class="text-4xl font-bold text-indigo-600">{{ stats.drivers }}</span>
-        <span class="text-gray-700 mt-2">Conductores</span>
+        <!-- Icono conductor -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mb-2 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A9 9 0 0112 15a9 9 0 016.879 2.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+        <span class="text-4xl font-bold text-green-600">{{ stats.drivers }}</span>
+        <span class="text-green-600 mt-2 font-semibold">Conductores</span>
       </div>
       <div class="bg-white rounded shadow p-6 flex flex-col items-center">
-        <span class="text-4xl font-bold text-purple-600">{{ stats.rentals }}</span>
-        <span class="text-gray-700 mt-2">Alquileres activos</span>
+        <!-- Icono alquiler -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mb-2 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 17l4 4 4-4m0-5V3a1 1 0 00-1-1h-6a1 1 0 00-1 1v9m10 4a8 8 0 11-16 0 8 8 0 0116 0z" /></svg>
+        <span class="text-4xl font-bold text-yellow-500">{{ stats.rentals }}</span>
+        <span class="text-yellow-500 mt-2 font-semibold">Alquileres activos</span>
       </div>
     </div>
 
@@ -57,14 +68,6 @@ auth.fetchUser();
           <span class="ml-2 text-blue-700">Deuda: ${{ Number(exp.debt).toFixed(2) }}</span>
         </li>
       </ul>
-    </div>
-
-    <!-- Links -->
-    <div class="flex flex-wrap gap-3">
-      <router-link to="/drivers" class="text-white bg-blue-600 px-4 py-2 rounded hover:bg-blue-700">Conductores</router-link>
-      <router-link to="/vehicles" class="text-white bg-indigo-600 px-4 py-2 rounded hover:bg-indigo-700">Vehículos</router-link>
-      <router-link to="/rentals" class="text-white bg-purple-600 px-4 py-2 rounded hover:bg-purple-700">Alquileres</router-link>
-      <router-link to="/payments" class="text-white bg-green-600 px-4 py-2 rounded hover:bg-green-700">Pagos</router-link>
     </div>
   </div>
 </template>

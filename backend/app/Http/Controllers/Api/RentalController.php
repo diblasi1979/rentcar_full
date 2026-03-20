@@ -9,6 +9,26 @@ use App\Services\RentalPaymentCalculator;
 
 class RentalController extends Controller
 {
+    // Actualizar alquiler
+    public function update(Request $request, $id)
+    {
+        $rental = Rental::findOrFail($id);
+        $data = $request->validate([
+            'amount' => 'required|numeric|min:0',
+            'start_date' => 'required|date',
+            'active' => 'nullable|boolean',
+        ]);
+        $rental->update($data);
+        return response()->json(['status' => 'ok', 'rental' => $rental]);
+    }
+
+    // Eliminar alquiler
+    public function destroy($id)
+    {
+        $rental = Rental::findOrFail($id);
+        $rental->delete();
+        return response()->json(['status' => 'ok']);
+    }
     public function index()
     {
         return Rental::with(['driver', 'vehicle', 'payments'])->get();

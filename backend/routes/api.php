@@ -29,5 +29,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // Payments
     Route::get('/payments', [PaymentController::class, 'index']);
     Route::post('/payments', [PaymentController::class, 'store']);
+    Route::put('/payments/{id}', [PaymentController::class, 'update']);
+    Route::delete('/payments/{id}', [PaymentController::class, 'destroy']);
     Route::post('/payments/send-receipt', [PaymentController::class, 'sendReceipt']);
 });

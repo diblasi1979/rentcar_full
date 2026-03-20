@@ -64,8 +64,28 @@ class PaymentController extends Controller
         ];
     }
 
-public function index()
-{
-    return Payment::with('rental.driver', 'rental.vehicle')->get();
-}
+    public function index()
+    {
+        return Payment::with('rental.driver', 'rental.vehicle')->get();
+    }
+
+    // Actualizar pago
+    public function update(Request $request, $id)
+    {
+        $payment = Payment::findOrFail($id);
+        $data = $request->validate([
+            'amount' => 'required|numeric',
+            'km_reported' => 'nullable|integer',
+        ]);
+        $payment->update($data);
+        return response()->json(['status' => 'ok', 'payment' => $payment]);
+    }
+
+    // Anular (eliminar) pago
+    public function destroy($id)
+    {
+        $payment = Payment::findOrFail($id);
+        $payment->delete();
+        return response()->json(['status' => 'ok']);
+    }
 }

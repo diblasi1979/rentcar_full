@@ -65,29 +65,112 @@
     </div>
 
 
-    <!-- TABLA HISTORIAL DE PAGOS -->
+
+    <!-- FILTROS HISTORIAL DE PAGOS -->
     <h3 class="font-semibold mb-2 mt-8">Historial de Pagos Recibidos</h3>
+
+    <div class="flex flex-wrap gap-4 mb-4 items-end">
+      <div>
+        <label class="block text-sm mb-1">Vehículo</label>
+        <select v-model="filterVehicle" class="border p-2 rounded">
+          <option value="">Todos</option>
+          <option v-for="v in uniqueVehicles" :key="v.plate" :value="v.plate">
+            {{ v.brand }} {{ v.model }} ({{ v.plate }})
+          </option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm mb-1">Conductor</label>
+        <select v-model="filterDriver" class="border p-2 rounded">
+          <option value="">Todos</option>
+          <option v-for="d in uniqueDrivers" :key="d.id" :value="d.id">
+            {{ d.name }}
+          </option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm mb-1">Fecha desde</label>
+        <input v-model="filterDateFrom" type="date" class="border p-2 rounded" />
+      </div>
+      <div>
+        <label class="block text-sm mb-1">Fecha hasta</label>
+        <input v-model="filterDateTo" type="date" class="border p-2 rounded" />
+      </div>
+      <button @click="clearFilters" class="ml-2 bg-gray-300 hover:bg-gray-400 text-gray-800 px-3 py-2 rounded">Limpiar</button>
+    </div>
+
     <table class="w-full bg-white shadow rounded">
-      <thead class="bg-gray-200">
+      <thead class="bg-orange-300">
         <tr>
-          <th class="p-2">Fecha</th>
+          <th class="p-2 text-center">Fecha</th>
           <th class="p-2">Conductor</th>
           <th class="p-2">Vehículo</th>
           <th class="p-2">Monto</th>
           <th class="p-2">KM</th>
+          <th class="p-2 text-center">Acciones</th>
         </tr>
       </thead>
 
       <tbody>
-        <tr v-for="p in payments" :key="p.id" class="border-t">
-          <td class="p-2">{{ formatDate(p.payment_date) }}</td>
+        <tr v-for="p in filteredPayments" :key="p.id" class="border-t">
+          <td class="p-2 text-center">{{ formatDate(p.payment_date) }}</td>
           <td class="p-2">{{ p.rental.driver.name }}</td>
           <td class="p-2">{{ p.rental.vehicle.plate }}</td>
           <td class="p-2">${{ Number(p.amount).toFixed(2) }}</td>
           <td class="p-2">{{ p.km_reported }}</td>
+          <td class="p-2 flex gap-2 justify-center">
+            <button @click="openEditModal(p)" title="Editar" class="hover:text-yellow-500">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: #eab308;">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536M9 13l6-6m2 2l-6 6m-2 2h6" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16.243 3.757a2.828 2.828 0 114 4L7.5 21H3v-4.5L16.243 3.757z" />
+              </svg>
+            </button>
+            <button @click="openAnnulModal(p)" title="Anular" class="hover:text-red-600">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: #ef4444;">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
+
+    <!-- Modal editar pago -->
+    <div v-if="showEditModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+      <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+        <h3 class="text-lg font-bold mb-4">Editar Pago</h3>
+        <div class="mb-2">
+          <label class="block text-sm mb-1">Monto</label>
+          <input v-model="editPayment.amount" type="number" class="border p-2 rounded w-full" />
+        </div>
+        <div class="mb-2">
+          <label class="block text-sm mb-1">KM Reportado</label>
+          <input v-model="editPayment.km_reported" type="number" class="border p-2 rounded w-full" />
+        </div>
+        <div class="flex gap-2 justify-end mt-4">
+          <button @click="saveEditPayment" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Guardar</button>
+          <button @click="closeEditModal" class="text-gray-600 hover:underline">Cancelar</button>
+        </div>
+        <div v-if="editError" class="text-red-600 mt-2 text-sm">{{ editError }}</div>
+      </div>
+    </div>
+
+    <!-- Modal anular pago -->
+    <div v-if="showAnnulModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+      <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+        <h3 class="text-lg font-bold mb-4">¿Seguro que desea anular este pago?</h3>
+        <div class="mb-4">
+          <b>Monto:</b> ${{ Number(annulPayment.amount).toFixed(2) }}<br/>
+          <b>Conductor:</b> {{ annulPayment.rental.driver.name }}<br/>
+          <b>Vehículo:</b> {{ annulPayment.rental.vehicle.plate }}
+        </div>
+        <div class="flex gap-2 justify-end">
+          <button @click="confirmAnnulPayment" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Anular</button>
+          <button @click="closeAnnulModal" class="text-gray-600 hover:underline">Cancelar</button>
+        </div>
+        <div v-if="annulError" class="text-red-600 mt-2 text-sm">{{ annulError }}</div>
+      </div>
+    </div>
 
   </div>
 
@@ -101,6 +184,103 @@
 </template>
 
 <script setup>
+// Acciones editar/anular pago
+const showEditModal = ref(false);
+const showAnnulModal = ref(false);
+const editPayment = ref({});
+const annulPayment = ref({});
+const editError = ref('');
+const annulError = ref('');
+
+const openEditModal = (pago) => {
+  editPayment.value = { ...pago };
+  editError.value = '';
+  showEditModal.value = true;
+};
+const closeEditModal = () => {
+  showEditModal.value = false;
+  editPayment.value = {};
+  editError.value = '';
+};
+const saveEditPayment = async () => {
+  try {
+    await api.put(`/payments/${editPayment.value.id}`, {
+      amount: editPayment.value.amount,
+      km_reported: editPayment.value.km_reported
+    });
+    await load();
+    closeEditModal();
+  } catch (e) {
+    editError.value = 'Error al guardar los cambios';
+  }
+};
+
+const openAnnulModal = (pago) => {
+  annulPayment.value = { ...pago };
+  annulError.value = '';
+  showAnnulModal.value = true;
+};
+const closeAnnulModal = () => {
+  showAnnulModal.value = false;
+  annulPayment.value = {};
+  annulError.value = '';
+};
+const confirmAnnulPayment = async () => {
+  try {
+    await api.delete(`/payments/${annulPayment.value.id}`);
+    await load();
+    closeAnnulModal();
+  } catch (e) {
+    annulError.value = 'Error al anular el pago';
+  }
+};
+const filterDriver = ref('');
+
+// Obtener lista única de conductores de los pagos
+const uniqueDrivers = computed(() => {
+  const map = {};
+  payments.value.forEach(p => {
+    if (p.rental && p.rental.driver) {
+      map[p.rental.driver.id] = p.rental.driver;
+    }
+  });
+  return Object.values(map);
+});
+// Filtros para historial de pagos
+import { computed } from 'vue';
+const filterVehicle = ref('');
+const filterDateFrom = ref('');
+const filterDateTo = ref('');
+
+// Obtener lista única de vehículos de los pagos
+const uniqueVehicles = computed(() => {
+  const map = {};
+  payments.value.forEach(p => {
+    if (p.rental && p.rental.vehicle) {
+      map[p.rental.vehicle.plate] = p.rental.vehicle;
+    }
+  });
+  return Object.values(map);
+});
+
+// Filtrar pagos según filtros
+const filteredPayments = computed(() => {
+  return payments.value.filter(p => {
+    let ok = true;
+    if (filterVehicle.value && p.rental && p.rental.vehicle && p.rental.vehicle.plate !== filterVehicle.value) ok = false;
+    if (filterDriver.value && p.rental && p.rental.driver && p.rental.driver.id !== filterDriver.value) ok = false;
+    if (filterDateFrom.value && p.payment_date < filterDateFrom.value) ok = false;
+    if (filterDateTo.value && p.payment_date > filterDateTo.value) ok = false;
+    return ok;
+  });
+});
+
+const clearFilters = () => {
+  filterVehicle.value = '';
+  filterDriver.value = '';
+  filterDateFrom.value = '';
+  filterDateTo.value = '';
+};
 // Envía el comprobante por email
 const sendEmail = async () => {
   if (!emailToSend.value || !lastPayment.value) {

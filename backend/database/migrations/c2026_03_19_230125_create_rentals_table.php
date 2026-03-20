@@ -18,6 +18,8 @@ return new class extends Migration
         $table->enum('type', ['semanal', 'quincenal', 'mensual']);
         $table->decimal('amount', 10, 2);
         $table->date('start_date');
+        $table->date('contract_from');
+        $table->date('contract_to');
         $table->boolean('active')->default(true);
         $table->timestamps();
     });

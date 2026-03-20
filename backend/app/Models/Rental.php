@@ -15,12 +15,16 @@ class Rental extends Model
         'type',
         'amount',
         'start_date',
+        'contract_from',
+        'contract_to',
         'active',
     ];
 
     protected $casts = [
         'amount' => 'decimal:2',
         'start_date' => 'date',
+        'contract_from' => 'date',
+        'contract_to' => 'date',
         'active' => 'boolean',
     ];
 

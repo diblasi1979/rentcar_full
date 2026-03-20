@@ -40,6 +40,16 @@
           <input type="date" v-model="form.start_date" class="border rounded px-3 py-2 w-full" required />
         </div>
 
+        <div>
+          <label class="block font-medium">Contrato desde</label>
+          <input type="date" v-model="form.contract_from" class="border rounded px-3 py-2 w-full" required />
+        </div>
+
+        <div>
+          <label class="block font-medium">Contrato hasta</label>
+          <input type="date" v-model="form.contract_to" class="border rounded px-3 py-2 w-full" required />
+        </div>
+
         <div class="flex items-center gap-2">
           <input id="active" type="checkbox" v-model="form.active" class="h-4 w-4" />
           <label for="active" class="font-medium">Activo</label>
@@ -101,6 +111,8 @@ const form = ref({
   type: '',
   amount: '',
   start_date: '',
+  contract_from: '',
+  contract_to: '',
   active: true,
 });
 
@@ -136,6 +148,8 @@ const storeRental = async () => {
       type: '',
       amount: '',
       start_date: '',
+      contract_from: '',
+      contract_to: '',
       active: true,
     };
   } catch (err) {

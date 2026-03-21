@@ -26,4 +26,9 @@ class Vehicle extends Model
     {
         return $this->hasMany(InsuranceCoverage::class);
     }
+
+    public function trafficInfractions()
+    {
+        return $this->hasMany(TrafficInfraction::class);
+    }
 }

@@ -27,4 +27,9 @@ class Driver extends Model
         'license_expiration' => 'date',
         'enabled' => 'boolean',
     ];
+
+    public function trafficInfractions()
+    {
+        return $this->hasMany(TrafficInfraction::class);
+    }
 }

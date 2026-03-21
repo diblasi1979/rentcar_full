@@ -64,6 +64,31 @@
       </div>
     </div>
 
+    <div class="bg-white p-4 rounded shadow mb-6">
+      <h3 class="font-semibold mb-2">Abono de Infracción</h3>
+
+      <select v-model="selectedInfractionId" class="border p-2 w-full mb-2" @change="handleInfractionSelection">
+        <option disabled value="">Seleccionar infracción adeudada</option>
+        <option v-for="infraction in pendingInfractions" :key="infraction.id" :value="String(infraction.id)">
+          {{ formatDate(infraction.infraction_date) }} - {{ infraction.driver?.name || 'Sin conductor' }} - {{ infraction.vehicle?.plate || 'Sin vehículo' }} - {{ infraction.type }}
+        </option>
+      </select>
+
+      <div v-if="selectedInfraction" class="bg-red-50 border border-red-100 rounded p-4 mb-3 text-sm space-y-1">
+        <p><b>Conductor:</b> {{ selectedInfraction.driver?.name || 'Sin conductor' }}</p>
+        <p><b>Vehículo:</b> {{ selectedInfraction.vehicle?.plate || 'Sin vehículo' }}</p>
+        <p><b>Tipo:</b> {{ selectedInfraction.type }}</p>
+        <p><b>Lugar:</b> {{ selectedInfraction.location || '-' }}</p>
+        <p><b>Monto adeudado:</b> ${{ Number(selectedInfraction.amount).toFixed(2) }}</p>
+      </div>
+
+      <button @click="payInfraction" :disabled="!selectedInfraction" class="bg-rose-600 text-white px-4 py-2 rounded hover:bg-rose-700 disabled:opacity-50 disabled:cursor-not-allowed">
+        Abonar infracción
+      </button>
+
+      <p v-if="infractionPaymentStatus" class="text-sm mt-2" :class="infractionPaymentStatusType === 'error' ? 'text-red-600' : 'text-green-600'">{{ infractionPaymentStatus }}</p>
+    </div>
+
 
 
     <!-- FILTROS HISTORIAL DE PAGOS -->
@@ -131,6 +156,62 @@
               </svg>
             </button>
           </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 class="font-semibold mb-2 mt-8">Historial de Infracciones Abonadas</h3>
+    <div class="flex flex-wrap gap-4 mb-4 items-end">
+      <div>
+        <label class="block text-sm mb-1">Conductor</label>
+        <select v-model="infractionPaidFilterDriver" class="border p-2 rounded">
+          <option value="">Todos</option>
+          <option v-for="driver in paidInfractionsUniqueDrivers" :key="driver.id" :value="String(driver.id)">
+            {{ driver.name }}
+          </option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm mb-1">Vehículo</label>
+        <select v-model="infractionPaidFilterVehicle" class="border p-2 rounded">
+          <option value="">Todos</option>
+          <option v-for="vehicle in paidInfractionsUniqueVehicles" :key="vehicle.plate" :value="vehicle.plate">
+            {{ vehicle.brand }} {{ vehicle.model }} ({{ vehicle.plate }})
+          </option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm mb-1">Pago desde</label>
+        <input v-model="infractionPaidFilterDateFrom" type="date" class="border p-2 rounded" />
+      </div>
+      <div>
+        <label class="block text-sm mb-1">Pago hasta</label>
+        <input v-model="infractionPaidFilterDateTo" type="date" class="border p-2 rounded" />
+      </div>
+      <button @click="clearPaidInfractionFilters" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-3 py-2 rounded">Limpiar</button>
+    </div>
+    <table class="w-full bg-white shadow rounded mb-6">
+      <thead class="bg-rose-200">
+        <tr>
+          <th class="p-2 text-center">Fecha Infracción</th>
+          <th class="p-2">Conductor</th>
+          <th class="p-2">Vehículo</th>
+          <th class="p-2">Tipo</th>
+          <th class="p-2">Monto</th>
+          <th class="p-2 text-center">Fecha Pago</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="infraction in filteredPaidInfractions" :key="infraction.id" class="border-t">
+          <td class="p-2 text-center">{{ formatDate(infraction.infraction_date) }}</td>
+          <td class="p-2">{{ infraction.driver?.name || 'Sin conductor' }}</td>
+          <td class="p-2">{{ infraction.vehicle?.plate || 'Sin vehículo' }}</td>
+          <td class="p-2">{{ infraction.type }}</td>
+          <td class="p-2">${{ Number(infraction.amount).toFixed(2) }}</td>
+          <td class="p-2 text-center">{{ formatDate(infraction.payment_date) }}</td>
+        </tr>
+        <tr v-if="filteredPaidInfractions.length === 0">
+          <td class="p-2 text-center text-gray-500" colspan="6">No hay infracciones abonadas registradas.</td>
         </tr>
       </tbody>
     </table>
@@ -348,6 +429,15 @@ function formatDate(dateStr) {
 
 const payments = ref([]);
 const rentals = ref([]);
+const infractions = ref([]);
+const selectedInfractionId = ref('');
+const selectedInfraction = ref(null);
+const infractionPaymentStatus = ref('');
+const infractionPaymentStatusType = ref('success');
+const infractionPaidFilterDriver = ref('');
+const infractionPaidFilterVehicle = ref('');
+const infractionPaidFilterDateFrom = ref('');
+const infractionPaidFilterDateTo = ref('');
 
 const form = ref({
   rental_id: '',
@@ -355,17 +445,117 @@ const form = ref({
   km_reported: ''
 });
 
+const pendingInfractions = computed(() => {
+  return infractions.value.filter((infraction) => infraction.status === 'ADEUDADA');
+});
+
+const paidInfractions = computed(() => {
+  return infractions.value
+    .filter((infraction) => infraction.status === 'PAGADA')
+    .sort((left, right) => {
+      const leftDate = new Date(left.payment_date || left.infraction_date || 0);
+      const rightDate = new Date(right.payment_date || right.infraction_date || 0);
+      return rightDate - leftDate;
+    });
+});
+
+const paidInfractionsUniqueDrivers = computed(() => {
+  const map = {};
+  paidInfractions.value.forEach((infraction) => {
+    if (infraction.driver) {
+      map[infraction.driver.id] = infraction.driver;
+    }
+  });
+  return Object.values(map);
+});
+
+const paidInfractionsUniqueVehicles = computed(() => {
+  const map = {};
+  paidInfractions.value.forEach((infraction) => {
+    if (infraction.vehicle) {
+      map[infraction.vehicle.plate] = infraction.vehicle;
+    }
+  });
+  return Object.values(map);
+});
+
+const filteredPaidInfractions = computed(() => {
+  return paidInfractions.value.filter((infraction) => {
+    let ok = true;
+    if (infractionPaidFilterDriver.value && String(infraction.driver?.id || '') !== String(infractionPaidFilterDriver.value)) ok = false;
+    if (infractionPaidFilterVehicle.value && infraction.vehicle?.plate !== infractionPaidFilterVehicle.value) ok = false;
+    if (infractionPaidFilterDateFrom.value && infraction.payment_date < infractionPaidFilterDateFrom.value) ok = false;
+    if (infractionPaidFilterDateTo.value && infraction.payment_date > infractionPaidFilterDateTo.value) ok = false;
+    return ok;
+  });
+});
+
+const clearPaidInfractionFilters = () => {
+  infractionPaidFilterDriver.value = '';
+  infractionPaidFilterVehicle.value = '';
+  infractionPaidFilterDateFrom.value = '';
+  infractionPaidFilterDateTo.value = '';
+};
+
 // cargar datos
 const load = async () => {
-  const p = await api.get('/payments');
-  const r = await api.get('/rentals');
+  const [p, r, i] = await Promise.all([
+    api.get('/payments'),
+    api.get('/rentals'),
+    api.get('/traffic-infractions'),
+  ]);
 
   payments.value = p.data;
   rentals.value = r.data;
+  infractions.value = i.data;
+
+  if (selectedInfractionId.value) {
+    selectedInfraction.value = infractions.value.find((infraction) => String(infraction.id) === String(selectedInfractionId.value)) || null;
+    if (!selectedInfraction.value) {
+      selectedInfractionId.value = '';
+    }
+  }
 
   // Si hay un alquiler seleccionado, refrescar la deuda
   if (form.value.rental_id) {
     await getDebt(form.value.rental_id);
+  }
+};
+
+const handleInfractionSelection = () => {
+  selectedInfraction.value = pendingInfractions.value.find((infraction) => String(infraction.id) === String(selectedInfractionId.value)) || null;
+  infractionPaymentStatus.value = '';
+};
+
+const payInfraction = async () => {
+  if (!selectedInfraction.value) {
+    return;
+  }
+
+  try {
+    infractionPaymentStatus.value = '';
+    infractionPaymentStatusType.value = 'success';
+
+    await api.put(`/traffic-infractions/${selectedInfraction.value.id}`, {
+      vehicle_id: selectedInfraction.value.vehicle_id,
+      driver_id: selectedInfraction.value.driver_id,
+      infraction_date: selectedInfraction.value.infraction_date?.split('T')[0] || selectedInfraction.value.infraction_date,
+      report_number: selectedInfraction.value.report_number || '',
+      type: selectedInfraction.value.type,
+      description: selectedInfraction.value.description,
+      location: selectedInfraction.value.location || '',
+      amount: selectedInfraction.value.amount,
+      status: 'PAGADA',
+      payment_date: new Date().toISOString().slice(0, 10),
+    });
+
+    infractionPaymentStatus.value = 'Infracción abonada correctamente e imputada al saldo del conductor.';
+    selectedInfractionId.value = '';
+    selectedInfraction.value = null;
+    await load();
+  } catch (e) {
+    infractionPaymentStatusType.value = 'error';
+    infractionPaymentStatus.value = 'Error al abonar la infracción.';
   }
 };
 

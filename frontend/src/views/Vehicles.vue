@@ -45,6 +45,17 @@
 
     <div class="bg-white p-4 rounded shadow">
       <h2 class="text-xl font-semibold mb-3">Listado de vehículos</h2>
+      <div class="flex flex-wrap gap-4 mb-4 items-end">
+        <div>
+          <label class="block text-sm mb-1">Patente</label>
+          <input v-model="filterPlate" class="border rounded px-3 py-2" placeholder="Buscar por patente" />
+        </div>
+        <div>
+          <label class="block text-sm mb-1">Marca</label>
+          <input v-model="filterBrand" class="border rounded px-3 py-2" placeholder="Buscar por marca" />
+        </div>
+        <button @click="clearFilters" type="button" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-3 py-2 rounded">Limpiar</button>
+      </div>
       <table class="w-full text-left border-collapse border border-gray-200">
         <thead class="bg-gray-100">
           <tr>
@@ -58,7 +69,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="vehicle in vehicles" :key="vehicle.id">
+          <tr v-for="vehicle in filteredVehicles" :key="vehicle.id">
             <td class="p-2 border">{{ vehicle.id }}</td>
             <td class="p-2 border">{{ vehicle.brand || '-' }}</td>
             <td class="p-2 border">{{ vehicle.model || '-' }}</td>
@@ -80,7 +91,7 @@
               </button>
             </td>
           </tr>
-          <tr v-if="vehicles.length === 0">
+          <tr v-if="filteredVehicles.length === 0">
             <td class="p-2 border text-center" colspan="7">No hay vehículos registrados.</td>
           </tr>
         </tbody>
@@ -145,13 +156,15 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { computed, ref, onMounted } from 'vue';
 import api from '../api/axios';
 
 const vehicles = ref([]);
 const coverages = ref([]);
 const status = ref('');
 const error = ref('');
+const filterPlate = ref('');
+const filterBrand = ref('');
 const showInsuranceModal = ref(false);
 const selectedVehicle = ref(null);
 const selectedCoverage = ref(null);
@@ -162,6 +175,14 @@ const form = ref({
   plate: '',
   year: '',
   has_gnc: false,
+});
+
+const filteredVehicles = computed(() => {
+  return vehicles.value.filter((vehicle) => {
+    const matchesPlate = !filterPlate.value || vehicle.plate?.toLowerCase().includes(filterPlate.value.toLowerCase());
+    const matchesBrand = !filterBrand.value || (vehicle.brand || '').toLowerCase().includes(filterBrand.value.toLowerCase());
+    return matchesPlate && matchesBrand;
+  });
 });
 
 const formatDate = (value) => {
@@ -182,6 +203,11 @@ const getVehicleCoverage = (vehicleId) => {
 
 const hasInsurance = (vehicleId) => {
   return Boolean(getVehicleCoverage(vehicleId));
+};
+
+const clearFilters = () => {
+  filterPlate.value = '';
+  filterBrand.value = '';
 };
 
 const openInsuranceModal = (vehicle) => {

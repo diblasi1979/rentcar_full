@@ -70,6 +70,28 @@ auth.fetchUser();
         </li>
       </ul>
     </div>
+
+    <div v-if="expiredPolicies.length" class="mb-8">
+      <h2 class="text-lg font-semibold mb-2 text-red-700">Vehículos con póliza vencida</h2>
+      <ul class="bg-white rounded shadow p-4">
+        <li v-for="policy in expiredPolicies" :key="policy.id" class="mb-2">
+          <span class="font-semibold">{{ policy.vehicle }}</span> -
+          <span>{{ policy.company }}</span> -
+          <span class="text-gray-600">Venció: {{ policy.valid_to }}</span>
+          <span class="ml-2 text-red-600">Póliza: {{ policy.policy_number }}</span>
+        </li>
+      </ul>
+    </div>
+
+    <div v-if="vehiclesWithoutInsurance.length" class="mb-8">
+      <h2 class="text-lg font-semibold mb-2 text-amber-700">Vehículos sin seguro</h2>
+      <ul class="bg-white rounded shadow p-4">
+        <li v-for="vehicle in vehiclesWithoutInsurance" :key="vehicle.id" class="mb-2">
+          <span class="font-semibold">{{ vehicle.plate }}</span>
+          <span class="text-gray-600"> - {{ vehicle.brand || 'Sin marca' }} {{ vehicle.model || '' }}</span>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -82,6 +104,8 @@ const auth = useAuthStore();
 const stats = ref({ vehicles: 0, drivers: 0, rentals: 0 });
 const alerts = ref([]);
 const expired = ref([]);
+const expiredPolicies = ref([]);
+const vehiclesWithoutInsurance = ref([]);
 
 const getRentalEndDate = (rental) => {
   if (!rental.start_date || !rental.type) return null;
@@ -95,10 +119,11 @@ const getRentalEndDate = (rental) => {
 };
 
 const loadStats = async () => {
-  const [vehiclesRes, driversRes, rentalsRes] = await Promise.all([
+  const [vehiclesRes, driversRes, rentalsRes, coveragesRes] = await Promise.all([
     api.get('/vehicles'),
     api.get('/drivers'),
     api.get('/rentals'),
+    api.get('/insurance-coverages'),
   ]);
   stats.value.vehicles = vehiclesRes.data.length;
   stats.value.drivers = driversRes.data.length;
@@ -143,6 +168,26 @@ const loadStats = async () => {
     const end = new Date(r.end_date);
     return end < now && Number(r.debt) > 0;
   });
+
+  const latestCoverageByVehicle = new Map();
+  coveragesRes.data.forEach((coverage) => {
+    const current = latestCoverageByVehicle.get(coverage.vehicle_id);
+    if (!current || new Date(coverage.valid_to) > new Date(current.valid_to)) {
+      latestCoverageByVehicle.set(coverage.vehicle_id, coverage);
+    }
+  });
+
+  expiredPolicies.value = Array.from(latestCoverageByVehicle.values())
+    .filter((coverage) => new Date(coverage.valid_to) < now)
+    .map((coverage) => ({
+      id: coverage.id,
+      vehicle: coverage.vehicle?.plate || 'Sin vehículo',
+      company: coverage.insurance_company,
+      valid_to: coverage.valid_to?.split('T')[0] || coverage.valid_to,
+      policy_number: coverage.policy_number,
+    }));
+
+  vehiclesWithoutInsurance.value = vehiclesRes.data.filter((vehicle) => !latestCoverageByVehicle.has(vehicle.id));
 };
 
 onMounted(() => {

@@ -43,6 +43,10 @@ class TrafficInfractionController extends Controller
             Storage::disk('public')->delete($infraction->attachment);
         }
 
+        if ($infraction->payment_receipt) {
+            Storage::disk('public')->delete($infraction->payment_receipt);
+        }
+
         $infraction->delete();
 
         return response()->json(['status' => 'ok']);
@@ -62,6 +66,7 @@ class TrafficInfractionController extends Controller
             'status' => 'required|string|in:ADEUDADA,PAGADA',
             'payment_date' => 'nullable|date',
             'attachment' => $isUpdate ? 'nullable|file|mimes:pdf,jpg,jpeg,png|max:20480' : 'nullable|file|mimes:pdf,jpg,jpeg,png|max:20480',
+            'payment_receipt' => $isUpdate ? 'nullable|file|mimes:pdf,jpg,jpeg,png|max:20480' : 'nullable|file|mimes:pdf,jpg,jpeg,png|max:20480',
         ]);
     }
 
@@ -73,6 +78,14 @@ class TrafficInfractionController extends Controller
             }
 
             $data['attachment'] = $request->file('attachment')->store('infractions/attachments', 'public');
+        }
+
+        if ($request->hasFile('payment_receipt')) {
+            if ($infraction && $infraction->payment_receipt) {
+                Storage::disk('public')->delete($infraction->payment_receipt);
+            }
+
+            $data['payment_receipt'] = $request->file('payment_receipt')->store('infractions/payment-receipts', 'public');
         }
 
         return $data;

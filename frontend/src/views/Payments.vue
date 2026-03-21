@@ -21,6 +21,10 @@
 
       <input v-model="form.amount" placeholder="Monto" class="border p-2 w-full mb-2"/>
       <input v-model="form.km_reported" placeholder="KM actual" class="border p-2 w-full mb-2" type="number" step="1" min="0" @input="form.km_reported = form.km_reported.replace(/[^\d]/g, '')"/>
+      <div class="mb-3">
+        <label class="block text-sm font-medium mb-1">Comprobante de pago</label>
+        <input :key="rentalReceiptInputKey" type="file" accept=".pdf,image/*" class="border p-2 w-full" @change="onRentalReceiptChange" />
+      </div>
       
       <button @click="save" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
         Guardar
@@ -86,6 +90,11 @@
         Abonar infracción
       </button>
 
+      <div class="mt-3">
+        <label class="block text-sm font-medium mb-1">Comprobante de pago</label>
+        <input :key="infractionReceiptInputKey" type="file" accept=".pdf,image/*" class="border p-2 w-full bg-white rounded" @change="onInfractionReceiptChange" />
+      </div>
+
       <p v-if="infractionPaymentStatus" class="text-sm mt-2" :class="infractionPaymentStatusType === 'error' ? 'text-red-600' : 'text-green-600'">{{ infractionPaymentStatus }}</p>
     </div>
 
@@ -132,6 +141,7 @@
           <th class="p-2">Vehículo</th>
           <th class="p-2">Monto</th>
           <th class="p-2">KM</th>
+          <th class="p-2 text-center">Comprobante</th>
           <th class="p-2 text-center">Acciones</th>
         </tr>
       </thead>
@@ -143,6 +153,10 @@
           <td class="p-2">{{ p.rental.vehicle.plate }}</td>
           <td class="p-2">${{ Number(p.amount).toFixed(2) }}</td>
           <td class="p-2">{{ p.km_reported }}</td>
+          <td class="p-2 text-center">
+            <a v-if="p.payment_receipt_url" :href="p.payment_receipt_url" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">Ver</a>
+            <span v-else class="text-gray-500">-</span>
+          </td>
           <td class="p-2 flex gap-2 justify-center">
             <button @click="openEditModal(p)" title="Editar" class="hover:text-yellow-500">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: #eab308;">
@@ -199,6 +213,7 @@
           <th class="p-2">Tipo</th>
           <th class="p-2">Monto</th>
           <th class="p-2 text-center">Fecha Pago</th>
+          <th class="p-2 text-center">Comprobante</th>
         </tr>
       </thead>
       <tbody>
@@ -209,9 +224,13 @@
           <td class="p-2">{{ infraction.type }}</td>
           <td class="p-2">${{ Number(infraction.amount).toFixed(2) }}</td>
           <td class="p-2 text-center">{{ formatDate(infraction.payment_date) }}</td>
+          <td class="p-2 text-center">
+            <a v-if="infraction.payment_receipt_url" :href="infraction.payment_receipt_url" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">Ver</a>
+            <span v-else class="text-gray-500">-</span>
+          </td>
         </tr>
         <tr v-if="filteredPaidInfractions.length === 0">
-          <td class="p-2 text-center text-gray-500" colspan="6">No hay infracciones abonadas registradas.</td>
+          <td class="p-2 text-center text-gray-500" colspan="7">No hay infracciones abonadas registradas.</td>
         </tr>
       </tbody>
     </table>
@@ -430,6 +449,10 @@ function formatDate(dateStr) {
 const payments = ref([]);
 const rentals = ref([]);
 const infractions = ref([]);
+const rentalPaymentReceipt = ref(null);
+const infractionPaymentReceipt = ref(null);
+const rentalReceiptInputKey = ref(0);
+const infractionReceiptInputKey = ref(0);
 const selectedInfractionId = ref('');
 const selectedInfraction = ref(null);
 const infractionPaymentStatus = ref('');
@@ -497,6 +520,48 @@ const clearPaidInfractionFilters = () => {
   infractionPaidFilterDateTo.value = '';
 };
 
+const onRentalReceiptChange = (event) => {
+  rentalPaymentReceipt.value = event.target.files?.[0] || null;
+};
+
+const onInfractionReceiptChange = (event) => {
+  infractionPaymentReceipt.value = event.target.files?.[0] || null;
+};
+
+const buildPaymentFormData = () => {
+  const formData = new FormData();
+  formData.append('rental_id', form.value.rental_id);
+  formData.append('amount', form.value.amount);
+  formData.append('payment_date', new Date().toISOString().slice(0, 10));
+  formData.append('km_reported', form.value.km_reported || '');
+
+  if (rentalPaymentReceipt.value) {
+    formData.append('payment_receipt', rentalPaymentReceipt.value);
+  }
+
+  return formData;
+};
+
+const buildInfractionPaymentFormData = () => {
+  const formData = new FormData();
+  formData.append('vehicle_id', selectedInfraction.value.vehicle_id);
+  formData.append('driver_id', selectedInfraction.value.driver_id || '');
+  formData.append('infraction_date', selectedInfraction.value.infraction_date?.split('T')[0] || selectedInfraction.value.infraction_date);
+  formData.append('report_number', selectedInfraction.value.report_number || '');
+  formData.append('type', selectedInfraction.value.type);
+  formData.append('description', selectedInfraction.value.description);
+  formData.append('location', selectedInfraction.value.location || '');
+  formData.append('amount', selectedInfraction.value.amount);
+  formData.append('status', 'PAGADA');
+  formData.append('payment_date', new Date().toISOString().slice(0, 10));
+
+  if (infractionPaymentReceipt.value) {
+    formData.append('payment_receipt', infractionPaymentReceipt.value);
+  }
+
+  return formData;
+};
+
 // cargar datos
 const load = async () => {
   const [p, r, i] = await Promise.all([
@@ -536,22 +601,19 @@ const payInfraction = async () => {
     infractionPaymentStatus.value = '';
     infractionPaymentStatusType.value = 'success';
 
-    await api.put(`/traffic-infractions/${selectedInfraction.value.id}`, {
-      vehicle_id: selectedInfraction.value.vehicle_id,
-      driver_id: selectedInfraction.value.driver_id,
-      infraction_date: selectedInfraction.value.infraction_date?.split('T')[0] || selectedInfraction.value.infraction_date,
-      report_number: selectedInfraction.value.report_number || '',
-      type: selectedInfraction.value.type,
-      description: selectedInfraction.value.description,
-      location: selectedInfraction.value.location || '',
-      amount: selectedInfraction.value.amount,
-      status: 'PAGADA',
-      payment_date: new Date().toISOString().slice(0, 10),
+    const formData = buildInfractionPaymentFormData();
+
+    await api.post(`/traffic-infractions/${selectedInfraction.value.id}?_method=PUT`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
     });
 
     infractionPaymentStatus.value = 'Infracción abonada correctamente e imputada al saldo del conductor.';
     selectedInfractionId.value = '';
     selectedInfraction.value = null;
+    infractionPaymentReceipt.value = null;
+    infractionReceiptInputKey.value += 1;
     await load();
   } catch (e) {
     infractionPaymentStatusType.value = 'error';
@@ -562,29 +624,29 @@ const payInfraction = async () => {
 
 // guardar
 const save = async () => {
-  // Guardar el pago
-  const response = await api.post('/payments', {
-    ...form.value,
-    payment_date: new Date().toISOString().slice(0,10)
+  const response = await api.post('/payments', buildPaymentFormData(), {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
   });
 
-  // Obtener el pago recién guardado (puede venir en response.data o buscar el último)
   let pagoGuardado = null;
-  if (response && response.data && response.data.id) {
+  if (response?.data?.payment?.id) {
+    pagoGuardado = response.data.payment;
+  } else if (response?.data?.id) {
     pagoGuardado = response.data;
   } else {
-    // Si la API no devuelve el pago, buscar el último
     const pagos = await api.get('/payments');
     pagoGuardado = pagos.data && pagos.data.length ? pagos.data[0] : null;
   }
   lastPayment.value = pagoGuardado;
 
-  // Refrescar deuda después de guardar
   await getDebt(form.value.rental_id);
   form.value = { rental_id: '', amount: '', km_reported: '' };
+  rentalPaymentReceipt.value = null;
+  rentalReceiptInputKey.value += 1;
   await load();
 
-  // Mostrar modal de acción
   showActionModal.value = true;
   showEmailInput.value = false;
   emailToSend.value = '';

@@ -11,6 +11,7 @@ class TrafficInfraction extends Model
 
     protected $appends = [
         'attachment_url',
+        'payment_receipt_url',
     ];
 
     protected $fillable = [
@@ -25,6 +26,7 @@ class TrafficInfraction extends Model
         'status',
         'payment_date',
         'attachment',
+        'payment_receipt',
     ];
 
     protected $casts = [
@@ -50,5 +52,14 @@ class TrafficInfraction extends Model
         }
 
         return asset('storage/' . $this->attachment);
+    }
+
+    public function getPaymentReceiptUrlAttribute(): ?string
+    {
+        if (!$this->payment_receipt) {
+            return null;
+        }
+
+        return asset('storage/' . $this->payment_receipt);
     }
 }

@@ -7,9 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Payment;
 use App\Mail\PaymentReceipt;
 use Illuminate\Support\Facades\Mail;
-use App\Models\Rental;
-use App\Models\Driver;
-use App\Models\Vehicle;
+use Illuminate\Support\Facades\Storage;
 
 class PaymentController extends Controller
 {
@@ -31,18 +29,21 @@ class PaymentController extends Controller
     }
     public function store(Request $request)
     {
-
         $data = $request->validate([
             'rental_id' => 'required|integer|exists:rentals,id',
             'amount' => 'required|numeric',
             'payment_date' => 'nullable|date',
             'km_reported' => 'nullable|integer',
             'notes' => 'nullable|string',
+            'payment_receipt' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:20480',
         ]);
 
-        // Si no viene payment_date, usar la fecha actual
         if (empty($data['payment_date'])) {
-            $data['payment_date'] = now();
+            $data['payment_date'] = now()->toDateString();
+        }
+
+        if ($request->hasFile('payment_receipt')) {
+            $data['payment_receipt'] = $request->file('payment_receipt')->store('payments/receipts', 'public');
         }
 
         $payment = Payment::create($data);
@@ -59,7 +60,7 @@ class PaymentController extends Controller
         }
 
         return [
-            'payment' => $payment,
+            'payment' => $payment->load('rental.driver', 'rental.vehicle'),
             'km_traveled' => $km
         ];
     }
@@ -76,15 +77,30 @@ class PaymentController extends Controller
         $data = $request->validate([
             'amount' => 'required|numeric',
             'km_reported' => 'nullable|integer',
+            'payment_receipt' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:20480',
         ]);
+
+        if ($request->hasFile('payment_receipt')) {
+            if ($payment->payment_receipt) {
+                Storage::disk('public')->delete($payment->payment_receipt);
+            }
+
+            $data['payment_receipt'] = $request->file('payment_receipt')->store('payments/receipts', 'public');
+        }
+
         $payment->update($data);
-        return response()->json(['status' => 'ok', 'payment' => $payment]);
+        return response()->json(['status' => 'ok', 'payment' => $payment->fresh('rental.driver', 'rental.vehicle')]);
     }
 
     // Anular (eliminar) pago
     public function destroy($id)
     {
         $payment = Payment::findOrFail($id);
+
+        if ($payment->payment_receipt) {
+            Storage::disk('public')->delete($payment->payment_receipt);
+        }
+
         $payment->delete();
         return response()->json(['status' => 'ok']);
     }

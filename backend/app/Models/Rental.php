@@ -9,6 +9,10 @@ class Rental extends Model
 {
     use HasFactory;
 
+    protected $appends = [
+        'contract_pdf_url',
+    ];
+
     protected $fillable = [
         'driver_id',
         'vehicle_id',
@@ -17,6 +21,7 @@ class Rental extends Model
         'start_date',
         'contract_from',
         'contract_to',
+        'contract_pdf',
         'active',
     ];
 
@@ -41,5 +46,14 @@ class Rental extends Model
     public function payments()
     {
         return $this->hasMany(Payment::class);
+    }
+
+    public function getContractPdfUrlAttribute(): ?string
+    {
+        if (!$this->contract_pdf) {
+            return null;
+        }
+
+        return asset('storage/' . $this->contract_pdf);
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Rental;
 use Illuminate\Http\Request;
 use App\Services\RentalPaymentCalculator;
+use Illuminate\Support\Facades\Storage;
 
 class RentalController extends Controller
 {
@@ -17,15 +18,34 @@ class RentalController extends Controller
             'amount' => 'required|numeric|min:0',
             'start_date' => 'required|date',
             'active' => 'nullable|boolean',
+            'contract_pdf' => 'nullable|file|mimes:pdf|max:20480',
         ]);
+
+        if ($request->hasFile('contract_pdf')) {
+            if ($rental->contract_pdf) {
+                Storage::disk('public')->delete($rental->contract_pdf);
+            }
+
+            $data['contract_pdf'] = $request->file('contract_pdf')->store('rentals/contracts', 'public');
+        }
+
         $rental->update($data);
-        return response()->json(['status' => 'ok', 'rental' => $rental]);
+
+        return response()->json([
+            'status' => 'ok',
+            'rental' => $rental->fresh(['driver', 'vehicle', 'payments']),
+        ]);
     }
 
     // Eliminar alquiler
     public function destroy($id)
     {
         $rental = Rental::findOrFail($id);
+
+        if ($rental->contract_pdf) {
+            Storage::disk('public')->delete($rental->contract_pdf);
+        }
+
         $rental->delete();
         return response()->json(['status' => 'ok']);
     }
@@ -45,22 +65,23 @@ class RentalController extends Controller
             'contract_from' => 'required|date',
             'contract_to' => 'required|date|after_or_equal:contract_from',
             'active' => 'nullable|boolean',
+            'contract_pdf' => 'nullable|file|mimes:pdf|max:20480',
         ]);
         
-        // Calcular cuotas y monto por cuota
-        $cuotas = RentalPaymentCalculator::calcularCuotas(
+        RentalPaymentCalculator::calcularCuotas(
             $data['type'],
             $data['amount'],
             $data['contract_from'],
             $data['contract_to']
         );
 
-        return Rental::create($data);
-        return response()->json([
-            'rental' => $rental,
-            'cuotas' => $cuotas['cuotas'],
-            'monto_por_cuota' => $cuotas['monto_por_cuota'],
-        ]);
+        if ($request->hasFile('contract_pdf')) {
+            $data['contract_pdf'] = $request->file('contract_pdf')->store('rentals/contracts', 'public');
+        }
+
+        $rental = Rental::create($data);
+
+        return response()->json($rental->load(['driver', 'vehicle', 'payments']), 201);
     }
 
     public function debt($id)

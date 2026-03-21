@@ -54,6 +54,7 @@
             <th class="p-2 border">Patente</th>
             <th class="p-2 border">Año</th>
             <th class="p-2 border">GNC</th>
+            <th class="p-2 border text-center">Seguro</th>
           </tr>
         </thead>
         <tbody>
@@ -64,12 +65,81 @@
             <td class="p-2 border">{{ vehicle.plate }}</td>
             <td class="p-2 border">{{ vehicle.year || '-' }}</td>
             <td class="p-2 border">{{ vehicle.has_gnc ? 'Sí' : 'No' }}</td>
+            <td class="p-2 border text-center">
+              <button
+                @click="openInsuranceModal(vehicle)"
+                type="button"
+                :title="hasInsurance(vehicle.id) ? 'Ver seguro del vehículo' : 'Vehículo sin seguro registrado'"
+                class="inline-flex items-center justify-center"
+                :class="hasInsurance(vehicle.id) ? 'text-cyan-600 hover:text-cyan-700' : 'text-red-500 hover:text-red-600'"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3l7 4v5c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V7l7-4z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4" />
+                </svg>
+              </button>
+            </td>
           </tr>
           <tr v-if="vehicles.length === 0">
-            <td class="p-2 border text-center" colspan="6">No hay vehículos registrados.</td>
+            <td class="p-2 border text-center" colspan="7">No hay vehículos registrados.</td>
           </tr>
         </tbody>
       </table>
+    </div>
+
+    <div v-if="showInsuranceModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 p-4">
+      <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+        <div class="flex items-start justify-between gap-4 mb-4">
+          <div>
+            <h3 class="text-xl font-bold">Seguro del Vehículo</h3>
+            <p class="text-sm text-gray-600">{{ selectedVehicle?.plate }} - {{ selectedVehicle?.brand || 'Sin marca' }} {{ selectedVehicle?.model || '' }}</p>
+          </div>
+          <button @click="closeInsuranceModal" type="button" class="text-gray-500 hover:text-gray-700">Cerrar</button>
+        </div>
+
+        <div v-if="selectedCoverage" class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+          <div>
+            <span class="font-semibold">Nro de Póliza:</span>
+            <span>{{ selectedCoverage.policy_number }}</span>
+          </div>
+          <div>
+            <span class="font-semibold">Nro de Endoso:</span>
+            <span>{{ selectedCoverage.endorsement_number || '-' }}</span>
+          </div>
+          <div>
+            <span class="font-semibold">Asegurado:</span>
+            <span>{{ selectedCoverage.insured_last_name }}, {{ selectedCoverage.insured_first_name }}</span>
+          </div>
+          <div>
+            <span class="font-semibold">Documento:</span>
+            <span>{{ selectedCoverage.insured_document_type }} {{ selectedCoverage.insured_document_number }}</span>
+          </div>
+          <div>
+            <span class="font-semibold">Aseguradora:</span>
+            <span>{{ selectedCoverage.insurance_company }}</span>
+          </div>
+          <div>
+            <span class="font-semibold">Teléfono:</span>
+            <span>{{ selectedCoverage.contact_phone || '-' }}</span>
+          </div>
+          <div>
+            <span class="font-semibold">Código Pago Electrónico:</span>
+            <span>{{ selectedCoverage.electronic_payment_code || '-' }}</span>
+          </div>
+          <div>
+            <span class="font-semibold">Vigencia:</span>
+            <span>{{ formatDate(selectedCoverage.valid_from) }} - {{ formatDate(selectedCoverage.valid_to) }}</span>
+          </div>
+          <div class="md:col-span-2 flex gap-4 pt-2">
+            <a v-if="selectedCoverage.policy_pdf_url" :href="selectedCoverage.policy_pdf_url" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">Ver PDF de la póliza</a>
+            <a v-if="selectedCoverage.credential_image_url" :href="selectedCoverage.credential_image_url" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">Ver imagen de credencial</a>
+          </div>
+        </div>
+
+        <div v-else class="text-sm text-gray-600">
+          No hay cobertura de seguro registrada para este vehículo.
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -79,8 +149,12 @@ import { ref, onMounted } from 'vue';
 import api from '../api/axios';
 
 const vehicles = ref([]);
+const coverages = ref([]);
 const status = ref('');
 const error = ref('');
+const showInsuranceModal = ref(false);
+const selectedVehicle = ref(null);
+const selectedCoverage = ref(null);
 
 const form = ref({
   brand: '',
@@ -90,10 +164,46 @@ const form = ref({
   has_gnc: false,
 });
 
+const formatDate = (value) => {
+  if (!value) {
+    return '-';
+  }
+
+  const clean = value.split('T')[0];
+  const [year, month, day] = clean.split('-');
+  return `${day}/${month}/${year}`;
+};
+
+const getVehicleCoverage = (vehicleId) => {
+  return coverages.value
+    .filter((coverage) => String(coverage.vehicle_id) === String(vehicleId))
+    .sort((a, b) => new Date(b.valid_to) - new Date(a.valid_to))[0] || null;
+};
+
+const hasInsurance = (vehicleId) => {
+  return Boolean(getVehicleCoverage(vehicleId));
+};
+
+const openInsuranceModal = (vehicle) => {
+  selectedVehicle.value = vehicle;
+  selectedCoverage.value = getVehicleCoverage(vehicle.id);
+  showInsuranceModal.value = true;
+};
+
+const closeInsuranceModal = () => {
+  showInsuranceModal.value = false;
+  selectedVehicle.value = null;
+  selectedCoverage.value = null;
+};
+
 const loadVehicles = async () => {
   try {
-    const res = await api.get('/vehicles');
-    vehicles.value = res.data;
+    const [vehiclesResponse, coveragesResponse] = await Promise.all([
+      api.get('/vehicles'),
+      api.get('/insurance-coverages'),
+    ]);
+    vehicles.value = vehiclesResponse.data;
+    coverages.value = coveragesResponse.data;
   } catch (err) {
     error.value = 'No se pudo cargar la lista de vehículos';
   }

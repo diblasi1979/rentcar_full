@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\DriverController;
 use App\Http\Controllers\Api\VehicleController;
 use App\Http\Controllers\Api\RentalController;
 use App\Http\Controllers\Api\PaymentController;
+use App\Http\Controllers\Api\InsuranceCoverageController;
 
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -21,6 +22,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/vehicles', [VehicleController::class, 'index']);
     Route::post('/vehicles', [VehicleController::class, 'store']);
+
+    Route::get('/insurance-coverages', [InsuranceCoverageController::class, 'index']);
+    Route::post('/insurance-coverages', [InsuranceCoverageController::class, 'store']);
+    Route::put('/insurance-coverages/{id}', [InsuranceCoverageController::class, 'update']);
+    Route::delete('/insurance-coverages/{id}', [InsuranceCoverageController::class, 'destroy']);
 
     Route::get('/rentals', [RentalController::class, 'index']);
     Route::post('/rentals', [RentalController::class, 'store']);

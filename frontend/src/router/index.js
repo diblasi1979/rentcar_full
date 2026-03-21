@@ -5,6 +5,7 @@ import Payments from '../views/Payments.vue';
 import Drivers from '../views/Drivers.vue';
 import Vehicles from '../views/Vehicles.vue';
 import Rentals from '../views/Rentals.vue';
+import InsuranceCoverages from '../views/InsuranceCoverages.vue';
 
 
 const routes = [
@@ -14,6 +15,7 @@ const routes = [
   { path: '/drivers', component: Drivers, meta: { requiresAuth: true } },
   { path: '/vehicles', component: Vehicles, meta: { requiresAuth: true } },
   { path: '/rentals', component: Rentals, meta: { requiresAuth: true } },
+  { path: '/insurance-coverages', component: InsuranceCoverages, meta: { requiresAuth: true } },
 ];
 
 

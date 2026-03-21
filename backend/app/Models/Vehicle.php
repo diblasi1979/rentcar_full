@@ -21,4 +21,9 @@ class Vehicle extends Model
         'has_gnc' => 'boolean',
         'year' => 'integer',
     ];
+
+    public function insuranceCoverages()
+    {
+        return $this->hasMany(InsuranceCoverage::class);
+    }
 }

@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\RentalController;
 use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\InsuranceCoverageController;
 use App\Http\Controllers\Api\TrafficInfractionController;
+use App\Http\Controllers\Api\VehicleMaintenanceController;
 
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -33,6 +34,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/traffic-infractions', [TrafficInfractionController::class, 'store']);
     Route::put('/traffic-infractions/{id}', [TrafficInfractionController::class, 'update']);
     Route::delete('/traffic-infractions/{id}', [TrafficInfractionController::class, 'destroy']);
+
+    Route::get('/vehicle-maintenances', [VehicleMaintenanceController::class, 'index']);
+    Route::post('/vehicle-maintenances', [VehicleMaintenanceController::class, 'store']);
+    Route::put('/vehicle-maintenances/{id}', [VehicleMaintenanceController::class, 'update']);
+    Route::delete('/vehicle-maintenances/{id}', [VehicleMaintenanceController::class, 'destroy']);
 
     Route::get('/rentals', [RentalController::class, 'index']);
     Route::post('/rentals', [RentalController::class, 'store']);

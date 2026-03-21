@@ -20,6 +20,7 @@ auth.fetchUser();
       <router-link to="/payments" class="text-white bg-pink-500 px-6 py-3 rounded-xl shadow-md font-semibold text-lg transition-all duration-200 hover:bg-pink-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-300">Pagos</router-link>
       <router-link to="/insurance-coverages" class="text-white bg-cyan-600 px-6 py-3 rounded-xl shadow-md font-semibold text-lg transition-all duration-200 hover:bg-cyan-700 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-cyan-300">Seguros</router-link>
       <router-link to="/traffic-infractions" class="text-white bg-rose-600 px-6 py-3 rounded-xl shadow-md font-semibold text-lg transition-all duration-200 hover:bg-rose-700 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-rose-300">Infracciones</router-link>
+      <router-link to="/vehicle-maintenances" class="text-white bg-indigo-600 px-6 py-3 rounded-xl shadow-md font-semibold text-lg transition-all duration-200 hover:bg-indigo-700 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-300">Mantenimientos</router-link>
     </div>
 
     <p class="text-gray-500 mb-6 text-center">Indicadores Generales del sistema</p>
@@ -93,6 +94,19 @@ auth.fetchUser();
         </li>
       </ul>
     </div>
+
+    <div v-if="pendingMaintenances.length" class="mb-8">
+      <h2 class="text-lg font-semibold mb-2 text-indigo-700">Mantenimientos pendientes</h2>
+      <ul class="bg-white rounded shadow p-4">
+        <li v-for="maintenance in pendingMaintenances" :key="maintenance.id" class="mb-2">
+          <span class="font-semibold">{{ maintenance.vehicle }}</span> -
+          <span>{{ maintenance.type }}</span> -
+          <span class="text-gray-600">Fecha: {{ maintenance.maintenance_date }}</span>
+          <span v-if="maintenance.next_service_mileage" class="ml-2 text-gray-600">Próximo service: {{ maintenance.next_service_mileage }} km</span>
+          <span class="ml-2 text-indigo-700">Estado: {{ maintenance.status }}</span>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -107,6 +121,7 @@ const alerts = ref([]);
 const expired = ref([]);
 const expiredPolicies = ref([]);
 const vehiclesWithoutInsurance = ref([]);
+const pendingMaintenances = ref([]);
 
 const getRentalEndDate = (rental) => {
   if (!rental.start_date || !rental.type) return null;
@@ -120,11 +135,12 @@ const getRentalEndDate = (rental) => {
 };
 
 const loadStats = async () => {
-  const [vehiclesRes, driversRes, rentalsRes, coveragesRes] = await Promise.all([
+  const [vehiclesRes, driversRes, rentalsRes, coveragesRes, maintenancesRes] = await Promise.all([
     api.get('/vehicles'),
     api.get('/drivers'),
     api.get('/rentals'),
     api.get('/insurance-coverages'),
+    api.get('/vehicle-maintenances'),
   ]);
   stats.value.vehicles = vehiclesRes.data.length;
   stats.value.drivers = driversRes.data.length;
@@ -189,6 +205,18 @@ const loadStats = async () => {
     }));
 
   vehiclesWithoutInsurance.value = vehiclesRes.data.filter((vehicle) => !latestCoverageByVehicle.has(vehicle.id));
+
+  pendingMaintenances.value = maintenancesRes.data
+    .filter((maintenance) => maintenance.status === 'PENDIENTE')
+    .sort((left, right) => new Date(left.maintenance_date) - new Date(right.maintenance_date))
+    .map((maintenance) => ({
+      id: maintenance.id,
+      vehicle: maintenance.vehicle?.plate || 'Sin vehículo',
+      type: maintenance.type,
+      maintenance_date: maintenance.maintenance_date?.split('T')[0] || maintenance.maintenance_date,
+      next_service_mileage: maintenance.next_service_mileage,
+      status: maintenance.status,
+    }));
 };
 
 onMounted(() => {

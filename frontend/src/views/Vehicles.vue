@@ -4,6 +4,7 @@
       <router-link to="/drivers" class="text-white bg-orange-500 px-6 py-3 rounded-xl shadow-md font-semibold text-lg transition-all duration-200 hover:bg-orange-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-orange-300">Conductores</router-link>
       <router-link to="/rentals" class="text-white bg-red-400 px-6 py-3 rounded-xl shadow-md font-semibold text-lg transition-all duration-200 hover:bg-red-500 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-200">Alquileres</router-link>
       <router-link to="/payments" class="text-white bg-pink-500 px-6 py-3 rounded-xl shadow-md font-semibold text-lg transition-all duration-200 hover:bg-pink-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-300">Pagos</router-link>
+      <router-link to="/vehicle-maintenances" class="text-white bg-indigo-600 px-6 py-3 rounded-xl shadow-md font-semibold text-lg transition-all duration-200 hover:bg-indigo-700 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-300">Mantenimientos</router-link>
     </div>
     <router-link to="/" class="inline-block mb-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">← Volver al Dashboard</router-link>
     <h1 class="text-2xl font-bold mb-4">Gestión de Vehículos</h1>
@@ -66,6 +67,7 @@
             <th class="p-2 border">Año</th>
             <th class="p-2 border">GNC</th>
             <th class="p-2 border text-center">Seguro</th>
+            <th class="p-2 border text-center">Mantenimiento</th>
           </tr>
         </thead>
         <tbody>
@@ -90,9 +92,21 @@
                 </svg>
               </button>
             </td>
+            <td class="p-2 border text-center">
+              <router-link
+                :to="{ path: '/vehicle-maintenances', query: { vehicle_id: String(vehicle.id) } }"
+                title="Ver mantenimientos del vehículo"
+                class="inline-flex items-center justify-center text-indigo-600 hover:text-indigo-700"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.7 6.3a1 1 0 010 1.4l-1.8 1.8 3.4 3.4 1.8-1.8a1 1 0 011.4 0l1.1 1.1a1 1 0 010 1.4l-5.4 5.4a4 4 0 01-1.7 1l-3.5 1.2 1.2-3.5a4 4 0 011-1.7l5.4-5.4a1 1 0 011.4 0l1.1 1.1" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19l4-1" />
+                </svg>
+              </router-link>
+            </td>
           </tr>
           <tr v-if="filteredVehicles.length === 0">
-            <td class="p-2 border text-center" colspan="7">No hay vehículos registrados.</td>
+            <td class="p-2 border text-center" colspan="8">No hay vehículos registrados.</td>
           </tr>
         </tbody>
       </table>

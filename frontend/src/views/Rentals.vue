@@ -201,8 +201,8 @@ import api from '../api/axios';
 import { useAuthStore } from '../stores/auth';
 
 const auth = useAuthStore();
-const canManageRentals = computed(() => auth.canManage('rentals'));
-const canDeleteRentals = computed(() => auth.canDelete('rentals'));
+const canManageRentals = computed(() => auth.hasManage('rentals'));
+const canDeleteRentals = computed(() => auth.hasDelete('rentals'));
 const rentals = ref([]);
 const drivers = ref([]);
 const vehicles = ref([]);

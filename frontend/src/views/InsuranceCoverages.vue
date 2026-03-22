@@ -268,8 +268,8 @@ import api from '../api/axios';
 import { useAuthStore } from '../stores/auth';
 
 const auth = useAuthStore();
-const canManageCoverages = computed(() => auth.canManage('insuranceCoverages'));
-const canDeleteCoverages = computed(() => auth.canDelete('insuranceCoverages'));
+const canManageCoverages = computed(() => auth.hasManage('insuranceCoverages'));
+const canDeleteCoverages = computed(() => auth.hasDelete('insuranceCoverages'));
 const route = useRoute();
 const coverages = ref([]);
 const vehicles = ref([]);

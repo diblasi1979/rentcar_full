@@ -250,8 +250,8 @@ import api from '../api/axios';
 import { useAuthStore } from '../stores/auth';
 
 const auth = useAuthStore();
-const canManageInfractions = computed(() => auth.canManage('trafficInfractions'));
-const canDeleteInfractions = computed(() => auth.canDelete('trafficInfractions'));
+const canManageInfractions = computed(() => auth.hasManage('trafficInfractions'));
+const canDeleteInfractions = computed(() => auth.hasDelete('trafficInfractions'));
 const infractions = ref([]);
 const vehicles = ref([]);
 const drivers = ref([]);

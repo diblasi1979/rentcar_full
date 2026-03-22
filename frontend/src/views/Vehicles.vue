@@ -239,7 +239,7 @@ import api from '../api/axios';
 import { useAuthStore } from '../stores/auth';
 
 const auth = useAuthStore();
-const canManageVehicles = computed(() => auth.canManage('vehicles'));
+const canManageVehicles = computed(() => auth.hasManage('vehicles'));
 const vehicles = ref([]);
 const coverages = ref([]);
 const maintenances = ref([]);

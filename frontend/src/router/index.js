@@ -10,6 +10,26 @@ import TrafficInfractions from '../views/TrafficInfractions.vue';
 import VehicleMaintenances from '../views/VehicleMaintenances.vue';
 import { useAuthStore } from '../stores/auth';
 import { pinia } from '../stores/pinia';
+import { canAccessPermission } from '../lib/permissions';
+
+function getStoredUser() {
+  const rawUser = localStorage.getItem('user');
+
+  if (!rawUser) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(rawUser);
+  } catch {
+    localStorage.removeItem('user');
+    return null;
+  }
+}
+
+function getStoredToken() {
+  return localStorage.getItem('token');
+}
 
 
 const routes = [
@@ -33,8 +53,11 @@ const router = createRouter({
 
 router.beforeEach(async (to) => {
   const auth = useAuthStore(pinia);
+  auth.syncSessionFromStorage();
+  const storedToken = getStoredToken();
+  const storedRole = getStoredUser()?.role || null;
 
-  if (to.path === '/login' && auth.token) {
+  if (to.path === '/login' && storedToken) {
     try {
       await auth.ensureUserLoaded();
       return '/';
@@ -47,7 +70,7 @@ router.beforeEach(async (to) => {
     return true;
   }
 
-  if (!auth.token) {
+  if (!storedToken) {
     return '/login';
   }
 
@@ -57,7 +80,7 @@ router.beforeEach(async (to) => {
     return '/login';
   }
 
-  if (to.meta.permission && !auth.canAccess(to.meta.permission)) {
+  if (to.meta.permission && !canAccessPermission(storedRole, to.meta.permission)) {
     return '/';
   }
 

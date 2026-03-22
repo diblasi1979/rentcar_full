@@ -179,7 +179,7 @@ import api from '../api/axios';
 import { useAuthStore } from '../stores/auth';
 
 const auth = useAuthStore();
-const canManageDrivers = computed(() => auth.canManage('drivers'));
+const canManageDrivers = computed(() => auth.hasManage('drivers'));
 const drivers = ref([]);
 const rentals = ref([]);
 const infractions = ref([]);

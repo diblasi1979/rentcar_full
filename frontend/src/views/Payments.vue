@@ -296,8 +296,8 @@ import api from '../api/axios';
 import { useAuthStore } from '../stores/auth';
 
 const auth = useAuthStore();
-const canManagePayments = computed(() => auth.canManage('payments'));
-const canDeletePayments = computed(() => auth.canDelete('payments'));
+const canManagePayments = computed(() => auth.hasManage('payments'));
+const canDeletePayments = computed(() => auth.hasDelete('payments'));
 
 // Acciones editar/anular pago
 const showEditModal = ref(false);

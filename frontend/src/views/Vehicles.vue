@@ -93,16 +93,17 @@
               </button>
             </td>
             <td class="p-2 border text-center">
-              <router-link
-                :to="{ path: '/vehicle-maintenances', query: { vehicle_id: String(vehicle.id) } }"
-                title="Ver mantenimientos del vehículo"
+              <button
+                @click="openMaintenanceModal(vehicle)"
+                type="button"
+                title="Ver historial de mantenimientos del vehículo"
                 class="inline-flex items-center justify-center text-indigo-600 hover:text-indigo-700"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.7 6.3a1 1 0 010 1.4l-1.8 1.8 3.4 3.4 1.8-1.8a1 1 0 011.4 0l1.1 1.1a1 1 0 010 1.4l-5.4 5.4a4 4 0 01-1.7 1l-3.5 1.2 1.2-3.5a4 4 0 011-1.7l5.4-5.4a1 1 0 011.4 0l1.1 1.1" />
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19l4-1" />
                 </svg>
-              </router-link>
+              </button>
             </td>
           </tr>
           <tr v-if="filteredVehicles.length === 0">
@@ -166,6 +167,65 @@
         </div>
       </div>
     </div>
+
+    <div v-if="showMaintenanceModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 p-4">
+      <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+        <div class="flex items-start justify-between gap-4 mb-4">
+          <div>
+            <h3 class="text-xl font-bold">Historial de Mantenimientos</h3>
+            <p class="text-sm text-gray-600">{{ selectedVehicle?.plate }} - {{ selectedVehicle?.brand || 'Sin marca' }} {{ selectedVehicle?.model || '' }}</p>
+          </div>
+          <button @click="closeMaintenanceModal" type="button" class="text-gray-500 hover:text-gray-700">Cerrar</button>
+        </div>
+
+        <div v-if="selectedMaintenances.length" class="overflow-x-auto">
+          <table class="w-full text-left border-collapse border border-gray-200">
+            <thead class="bg-indigo-100">
+              <tr>
+                <th class="p-2 border text-center">Fecha</th>
+                <th class="p-2 border">Tipo</th>
+                <th class="p-2 border">Descripcion</th>
+                <th class="p-2 border">KM</th>
+                <th class="p-2 border">Proximo Service</th>
+                <th class="p-2 border">Costo</th>
+                <th class="p-2 border text-center">Estado</th>
+                <th class="p-2 border text-center">Comprobante</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="maintenance in selectedMaintenances"
+                :key="maintenance.id"
+                :class="maintenance.status === 'PENDIENTE' ? 'bg-amber-50' : 'bg-white'"
+              >
+                <td class="p-2 border text-center">{{ formatDate(maintenance.maintenance_date) }}</td>
+                <td class="p-2 border">{{ maintenance.type }}</td>
+                <td class="p-2 border">{{ maintenance.description }}</td>
+                <td class="p-2 border">{{ maintenance.mileage || '-' }}</td>
+                <td class="p-2 border">{{ maintenance.next_service_mileage || '-' }}</td>
+                <td class="p-2 border">{{ maintenance.cost ? `$${Number(maintenance.cost).toFixed(2)}` : '-' }}</td>
+                <td class="p-2 border text-center">
+                  <span
+                    class="inline-flex rounded-full px-2 py-1 text-xs font-semibold"
+                    :class="maintenance.status === 'PENDIENTE' ? 'bg-amber-200 text-amber-900' : 'bg-emerald-100 text-emerald-800'"
+                  >
+                    {{ maintenance.status }}
+                  </span>
+                </td>
+                <td class="p-2 border text-center">
+                  <a v-if="maintenance.receipt_url" :href="maintenance.receipt_url" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">Ver</a>
+                  <span v-else class="text-gray-500">-</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div v-else class="text-sm text-gray-600">
+          No hay mantenimientos registrados para este vehículo.
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -175,13 +235,16 @@ import api from '../api/axios';
 
 const vehicles = ref([]);
 const coverages = ref([]);
+const maintenances = ref([]);
 const status = ref('');
 const error = ref('');
 const filterPlate = ref('');
 const filterBrand = ref('');
 const showInsuranceModal = ref(false);
+const showMaintenanceModal = ref(false);
 const selectedVehicle = ref(null);
 const selectedCoverage = ref(null);
+const selectedMaintenances = ref([]);
 
 const form = ref({
   brand: '',
@@ -236,14 +299,34 @@ const closeInsuranceModal = () => {
   selectedCoverage.value = null;
 };
 
+const getVehicleMaintenances = (vehicleId) => {
+  return maintenances.value
+    .filter((maintenance) => String(maintenance.vehicle_id) === String(vehicleId))
+    .sort((a, b) => new Date(b.maintenance_date) - new Date(a.maintenance_date));
+};
+
+const openMaintenanceModal = (vehicle) => {
+  selectedVehicle.value = vehicle;
+  selectedMaintenances.value = getVehicleMaintenances(vehicle.id);
+  showMaintenanceModal.value = true;
+};
+
+const closeMaintenanceModal = () => {
+  showMaintenanceModal.value = false;
+  selectedVehicle.value = null;
+  selectedMaintenances.value = [];
+};
+
 const loadVehicles = async () => {
   try {
-    const [vehiclesResponse, coveragesResponse] = await Promise.all([
+    const [vehiclesResponse, coveragesResponse, maintenancesResponse] = await Promise.all([
       api.get('/vehicles'),
       api.get('/insurance-coverages'),
+      api.get('/vehicle-maintenances'),
     ]);
     vehicles.value = vehiclesResponse.data;
     coverages.value = coveragesResponse.data;
+    maintenances.value = maintenancesResponse.data;
   } catch (err) {
     error.value = 'No se pudo cargar la lista de vehículos';
   }

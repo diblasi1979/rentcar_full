@@ -1,0 +1,3191 @@
+%PDF-1.4
+%âãÏÓ
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+2 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+3 0 obj
+<< /Length 1368 >>
+stream
+q 0.960 0.970 0.980 rg 0.00 0.00 595.00 842.00 re f Q
+q 0.090 0.200 0.360 rg 0.00 632.00 595.00 210.00 re f Q
+q 0.210 0.530 0.780 rg 0.00 624.00 595.00 8.00 re f Q
+q 1.000 1.000 1.000 rg 56.00 438.00 483.00 150.00 re f Q
+q 0.790 0.630 0.240 RG 2.50 w 56.00 586.00 m 539.00 586.00 l S Q
+q 0.210 0.530 0.780 RG 1.20 w 56.00 438.00 m 539.00 438.00 l S Q
+BT
+1.000 1.000 1.000 rg
+/F2 18 Tf
+1 0 0 1 56.00 742.00 Tm
+(RENTCAR) Tj
+ET
+BT
+1.000 1.000 1.000 rg
+/F2 28 Tf
+1 0 0 1 56.00 702.00 Tm
+(Funcionalidades de la Aplicacion RentCar) Tj
+ET
+BT
+0.860 0.910 0.970 rg
+/F1 14 Tf
+1 0 0 1 56.00 674.00 Tm
+(Documento funcional institucional) Tj
+ET
+BT
+0.800 0.870 0.950 rg
+/F1 11 Tf
+1 0 0 1 56.00 642.00 Tm
+(Resumen integral de modulos, roles, relaciones y capacidades operativas del sistema.) Tj
+ET
+BT
+0.090 0.200 0.360 rg
+/F2 16 Tf
+1 0 0 1 80.00 548.00 Tm
+(Alcance del documento) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 11 Tf
+1 0 0 1 80.00 522.00 Tm
+(Este PDF describe las funcionalidades visibles y operativas de la aplicacion,) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 11 Tf
+1 0 0 1 80.00 506.00 Tm
+(incluyendo gestion administrativa, portal del conductor, permisos y flujo de datos.) Tj
+ET
+BT
+0.210 0.530 0.780 rg
+/F2 11 Tf
+1 0 0 1 80.00 478.00 Tm
+(Fecha de emision: 22/03/2026) Tj
+ET
+BT
+0.460 0.500 0.560 rg
+/F1 10 Tf
+1 0 0 1 56.00 86.00 Tm
+(RentCar · Documento de referencia funcional) Tj
+ET
+endstream
+endobj
+4 0 obj
+<< /Type /Page /Parent 23 0 R /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 3 0 R >>
+endobj
+5 0 obj
+<< /Length 5092 >>
+stream
+q 0.090 0.200 0.360 rg 0.00 794.00 595.00 48.00 re f Q
+q 0.210 0.530 0.780 rg 0.00 790.00 595.00 4.00 re f Q
+BT
+1.000 1.000 1.000 rg
+/F2 12 Tf
+1 0 0 1 56.00 810.00 Tm
+(RentCar · Funcionalidades de la aplicacion) Tj
+ET
+q 0.820 0.850 0.880 RG 0.80 w 56.00 52.00 m 539.00 52.00 l S Q
+BT
+0.460 0.500 0.560 rg
+/F1 9 Tf
+1 0 0 1 56.00 34.00 Tm
+(Documento funcional institucional) Tj
+ET
+BT
+0.460 0.500 0.560 rg
+/F2 9 Tf
+1 0 0 1 485.00 34.00 Tm
+(Pagina 1/9) Tj
+ET
+BT
+0.090 0.200 0.360 rg
+/F2 20 Tf
+1 0 0 1 56.00 730.00 Tm
+(Funcionalidades de la Aplicacion RentCar) Tj
+ET
+q 0.790 0.630 0.240 RG 2.00 w 56.00 724.00 m 276.00 724.00 l S Q
+BT
+0.090 0.200 0.360 rg
+/F2 14 Tf
+1 0 0 1 56.00 688.00 Tm
+(1. Descripcion general) Tj
+ET
+q 0.210 0.530 0.780 RG 1.20 w 56.00 684.00 m 236.00 684.00 l S Q
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 56.00 652.00 Tm
+(RentCar es una aplicacion web para la gestion integral del alquiler de vehiculos.) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 56.00 637.00 Tm
+(La solucion esta compuesta por:) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 612.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 612.00 Tm
+(Frontend en Vue 3.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 597.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 597.00 Tm
+(Backend API en Laravel.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 582.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 582.00 Tm
+(Autenticacion con token mediante Sanctum.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 567.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 567.00 Tm
+(Control de permisos por rol.) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 56.00 542.00 Tm
+(La aplicacion permite administrar conductores, vehiculos, alquileres, pagos,) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 56.00 527.00 Tm
+(seguros, infracciones, mantenimientos y usuarios del sistema. Ademas incluye un) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 56.00 512.00 Tm
+(portal especifico para usuarios con rol conductor.) Tj
+ET
+BT
+0.090 0.200 0.360 rg
+/F2 14 Tf
+1 0 0 1 56.00 487.00 Tm
+(2. Roles del sistema) Tj
+ET
+q 0.210 0.530 0.780 RG 1.20 w 56.00 483.00 m 236.00 483.00 l S Q
+BT
+0.210 0.530 0.780 rg
+/F2 11 Tf
+1 0 0 1 56.00 451.00 Tm
+(Admin) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 421.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 421.00 Tm
+(Acceso total a todos los modulos.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 406.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 406.00 Tm
+(Puede crear, editar, eliminar y administrar la operacion completa.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 391.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 391.00 Tm
+(Puede dar de alta usuarios del sistema.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 376.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 376.00 Tm
+(Puede resetear contraseñas de otros usuarios.) Tj
+ET
+BT
+0.210 0.530 0.780 rg
+/F2 11 Tf
+1 0 0 1 56.00 351.00 Tm
+(Consultor) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 321.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 321.00 Tm
+(Acceso a los modulos administrativos.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 306.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 306.00 Tm
+(Puede crear y editar informacion operativa.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 291.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 291.00 Tm
+(No puede eliminar registros.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 276.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 276.00 Tm
+(No puede ejecutar acciones reservadas a administradores.) Tj
+ET
+BT
+0.210 0.530 0.780 rg
+/F2 11 Tf
+1 0 0 1 56.00 251.00 Tm
+(Conductor) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 221.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 221.00 Tm
+(Acceso a un portal exclusivo.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 206.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 206.00 Tm
+(Puede consultar su informacion operativa.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 191.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 191.00 Tm
+(Puede ver deuda, infracciones y documentacion asociada.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 176.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 176.00 Tm
+(Puede cambiar su contraseña.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 161.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 161.00 Tm
+(Puede generar solicitudes de servicio.) Tj
+ET
+BT
+0.090 0.200 0.360 rg
+/F2 14 Tf
+1 0 0 1 56.00 136.00 Tm
+(3. Modulos principales) Tj
+ET
+q 0.210 0.530 0.780 RG 1.20 w 56.00 132.00 m 236.00 132.00 l S Q
+BT
+0.090 0.200 0.360 rg
+/F2 14 Tf
+1 0 0 1 56.00 100.00 Tm
+(3.1 Dashboard) Tj
+ET
+q 0.210 0.530 0.780 RG 1.20 w 56.00 96.00 m 236.00 96.00 l S Q
+endstream
+endobj
+6 0 obj
+<< /Type /Page /Parent 23 0 R /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 5 0 R >>
+endobj
+7 0 obj
+<< /Length 5158 >>
+stream
+q 0.090 0.200 0.360 rg 0.00 794.00 595.00 48.00 re f Q
+q 0.210 0.530 0.780 rg 0.00 790.00 595.00 4.00 re f Q
+BT
+1.000 1.000 1.000 rg
+/F2 12 Tf
+1 0 0 1 56.00 810.00 Tm
+(RentCar · Funcionalidades de la aplicacion) Tj
+ET
+q 0.820 0.850 0.880 RG 0.80 w 56.00 52.00 m 539.00 52.00 l S Q
+BT
+0.460 0.500 0.560 rg
+/F1 9 Tf
+1 0 0 1 56.00 34.00 Tm
+(Documento funcional institucional) Tj
+ET
+BT
+0.460 0.500 0.560 rg
+/F2 9 Tf
+1 0 0 1 485.00 34.00 Tm
+(Pagina 2/9) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 56.00 730.00 Tm
+(El dashboard central muestra el acceso a los modulos habilitados segun el rol) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 56.00 715.00 Tm
+(autenticado.) Tj
+ET
+BT
+0.210 0.530 0.780 rg
+/F2 11 Tf
+1 0 0 1 56.00 690.00 Tm
+(Funcionalidades del dashboard administrativo) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 660.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 660.00 Tm
+(Acceso rapido a usuarios, conductores, vehiculos, alquileres, pagos,) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 645.00 Tm
+(seguros, infracciones y mantenimientos.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 630.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 630.00 Tm
+(Indicadores generales del sistema.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 615.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 615.00 Tm
+(Alertas de alquileres proximos a vencer.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 600.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 600.00 Tm
+(Alertas de alquileres vencidos con deuda.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 585.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 585.00 Tm
+(Alertas de vehiculos con poliza vencida.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 570.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 570.00 Tm
+(Alertas de vehiculos sin seguro cargado.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 555.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 555.00 Tm
+(Alertas de mantenimientos pendientes.) Tj
+ET
+BT
+0.210 0.530 0.780 rg
+/F2 11 Tf
+1 0 0 1 56.00 530.00 Tm
+(Comportamiento para conductores) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 500.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 500.00 Tm
+(Los usuarios con rol conductor son redirigidos automaticamente al portal) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 485.00 Tm
+(del conductor.) Tj
+ET
+BT
+0.090 0.200 0.360 rg
+/F2 14 Tf
+1 0 0 1 56.00 460.00 Tm
+(3.2 Gestion de usuarios del sistema) Tj
+ET
+q 0.210 0.530 0.780 RG 1.20 w 56.00 456.00 m 236.00 456.00 l S Q
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 56.00 424.00 Tm
+(Modulo exclusivo para administradores.) Tj
+ET
+BT
+0.210 0.530 0.780 rg
+/F2 11 Tf
+1 0 0 1 56.00 399.00 Tm
+(Funcionalidades) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 369.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 369.00 Tm
+(Alta de usuarios del sistema.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 354.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 354.00 Tm
+(Asignacion de rol: admin, consultor o conductor.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 339.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 339.00 Tm
+(Vinculacion entre usuario con rol conductor y su registro de conductor.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 324.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 324.00 Tm
+(Edicion de usuarios existentes.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 309.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 309.00 Tm
+(Reseteo de contraseña de cualquier usuario.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 294.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 294.00 Tm
+(Visualizacion de usuarios registrados con datos basicos.) Tj
+ET
+BT
+0.210 0.530 0.780 rg
+/F2 11 Tf
+1 0 0 1 56.00 269.00 Tm
+(Reglas importantes) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 239.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 239.00 Tm
+(Un usuario conductor debe estar vinculado a un conductor.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 224.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 224.00 Tm
+(Un mismo conductor no puede quedar vinculado a dos usuarios diferentes.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 209.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 209.00 Tm
+(Un administrador no puede quitarse a si mismo el rol admin desde la) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 194.00 Tm
+(interfaz.) Tj
+ET
+BT
+0.090 0.200 0.360 rg
+/F2 14 Tf
+1 0 0 1 56.00 169.00 Tm
+(3.3 Gestion de conductores) Tj
+ET
+q 0.210 0.530 0.780 RG 1.20 w 56.00 165.00 m 236.00 165.00 l S Q
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 56.00 133.00 Tm
+(Permite administrar las personas que conducen los vehiculos alquilados.) Tj
+ET
+BT
+0.210 0.530 0.780 rg
+/F2 11 Tf
+1 0 0 1 56.00 108.00 Tm
+(Datos administrados) Tj
+ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 23 0 R /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 7 0 R >>
+endobj
+9 0 obj
+<< /Length 5461 >>
+stream
+q 0.090 0.200 0.360 rg 0.00 794.00 595.00 48.00 re f Q
+q 0.210 0.530 0.780 rg 0.00 790.00 595.00 4.00 re f Q
+BT
+1.000 1.000 1.000 rg
+/F2 12 Tf
+1 0 0 1 56.00 810.00 Tm
+(RentCar · Funcionalidades de la aplicacion) Tj
+ET
+q 0.820 0.850 0.880 RG 0.80 w 56.00 52.00 m 539.00 52.00 l S Q
+BT
+0.460 0.500 0.560 rg
+/F1 9 Tf
+1 0 0 1 56.00 34.00 Tm
+(Documento funcional institucional) Tj
+ET
+BT
+0.460 0.500 0.560 rg
+/F2 9 Tf
+1 0 0 1 485.00 34.00 Tm
+(Pagina 3/9) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 730.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 730.00 Tm
+(Nombre.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 715.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 715.00 Tm
+(DNI.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 700.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 700.00 Tm
+(Numero de licencia.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 685.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 685.00 Tm
+(Vencimiento de licencia.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 670.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 670.00 Tm
+(Telefono.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 655.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 655.00 Tm
+(Email.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 640.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 640.00 Tm
+(Estado habilitado o deshabilitado.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 625.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 625.00 Tm
+(Documentacion adjunta.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 610.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 610.00 Tm
+(Vehiculo asignado en forma directa.) Tj
+ET
+BT
+0.210 0.530 0.780 rg
+/F2 11 Tf
+1 0 0 1 56.00 585.00 Tm
+(Funcionalidades) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 555.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 555.00 Tm
+(Alta de conductores.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 540.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 540.00 Tm
+(Edicion de conductores.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 525.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 525.00 Tm
+(Habilitacion y deshabilitacion.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 510.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 510.00 Tm
+(Carga de hasta cuatro documentos por conductor.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 495.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 495.00 Tm
+(Visualizacion del vehiculo asignado.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 480.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 480.00 Tm
+(Consulta de deuda consolidada por conductor.) Tj
+ET
+BT
+0.210 0.530 0.780 rg
+/F2 11 Tf
+1 0 0 1 56.00 455.00 Tm
+(Informacion financiera mostrada) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 425.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 425.00 Tm
+(Deuda por alquileres.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 410.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 410.00 Tm
+(Deuda por infracciones.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 395.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 395.00 Tm
+(Total adeudado.) Tj
+ET
+BT
+0.090 0.200 0.360 rg
+/F2 14 Tf
+1 0 0 1 56.00 370.00 Tm
+(3.4 Gestion de vehiculos) Tj
+ET
+q 0.210 0.530 0.780 RG 1.20 w 56.00 366.00 m 236.00 366.00 l S Q
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 56.00 334.00 Tm
+(Permite administrar la flota operativa.) Tj
+ET
+BT
+0.210 0.530 0.780 rg
+/F2 11 Tf
+1 0 0 1 56.00 309.00 Tm
+(Datos administrados) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 279.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 279.00 Tm
+(Marca.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 264.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 264.00 Tm
+(Modelo.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 249.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 249.00 Tm
+(Patente.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 234.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 234.00 Tm
+(Año.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 219.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 219.00 Tm
+(Indicacion de GNC.) Tj
+ET
+BT
+0.210 0.530 0.780 rg
+/F2 11 Tf
+1 0 0 1 56.00 194.00 Tm
+(Funcionalidades) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 164.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 164.00 Tm
+(Alta de vehiculos.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 149.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 149.00 Tm
+(Visualizacion del listado general.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 134.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 134.00 Tm
+(Uso del vehiculo en alquileres, seguros, infracciones, mantenimientos y) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 119.00 Tm
+(solicitudes de servicio.) Tj
+ET
+BT
+0.090 0.200 0.360 rg
+/F2 14 Tf
+1 0 0 1 56.00 94.00 Tm
+(3.5 Gestion de alquileres) Tj
+ET
+q 0.210 0.530 0.780 RG 1.20 w 56.00 90.00 m 236.00 90.00 l S Q
+endstream
+endobj
+10 0 obj
+<< /Type /Page /Parent 23 0 R /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 9 0 R >>
+endobj
+11 0 obj
+<< /Length 5309 >>
+stream
+q 0.090 0.200 0.360 rg 0.00 794.00 595.00 48.00 re f Q
+q 0.210 0.530 0.780 rg 0.00 790.00 595.00 4.00 re f Q
+BT
+1.000 1.000 1.000 rg
+/F2 12 Tf
+1 0 0 1 56.00 810.00 Tm
+(RentCar · Funcionalidades de la aplicacion) Tj
+ET
+q 0.820 0.850 0.880 RG 0.80 w 56.00 52.00 m 539.00 52.00 l S Q
+BT
+0.460 0.500 0.560 rg
+/F1 9 Tf
+1 0 0 1 56.00 34.00 Tm
+(Documento funcional institucional) Tj
+ET
+BT
+0.460 0.500 0.560 rg
+/F2 9 Tf
+1 0 0 1 485.00 34.00 Tm
+(Pagina 4/9) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 56.00 720.00 Tm
+(Modulo para registrar y administrar contratos de alquiler.) Tj
+ET
+BT
+0.210 0.530 0.780 rg
+/F2 11 Tf
+1 0 0 1 56.00 695.00 Tm
+(Datos administrados) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 665.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 665.00 Tm
+(Conductor asociado.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 650.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 650.00 Tm
+(Vehiculo asociado.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 635.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 635.00 Tm
+(Tipo de alquiler: semanal, quincenal o mensual.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 620.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 620.00 Tm
+(Monto.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 605.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 605.00 Tm
+(Fecha de inicio.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 590.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 590.00 Tm
+(Vigencia contractual.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 575.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 575.00 Tm
+(Estado activo.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 560.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 560.00 Tm
+(Contrato en PDF.) Tj
+ET
+BT
+0.210 0.530 0.780 rg
+/F2 11 Tf
+1 0 0 1 56.00 535.00 Tm
+(Funcionalidades) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 505.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 505.00 Tm
+(Alta de alquileres.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 490.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 490.00 Tm
+(Edicion de alquileres.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 475.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 475.00 Tm
+(Eliminacion de alquileres por admin.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 460.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 460.00 Tm
+(Consulta de deuda del alquiler segun pagos realizados.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 445.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 445.00 Tm
+(Descarga y visualizacion del contrato cargado.) Tj
+ET
+BT
+0.090 0.200 0.360 rg
+/F2 14 Tf
+1 0 0 1 56.00 420.00 Tm
+(3.6 Gestion de pagos) Tj
+ET
+q 0.210 0.530 0.780 RG 1.20 w 56.00 416.00 m 236.00 416.00 l S Q
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 56.00 384.00 Tm
+(Modulo para registrar y consultar pagos de alquileres e infracciones.) Tj
+ET
+BT
+0.210 0.530 0.780 rg
+/F2 11 Tf
+1 0 0 1 56.00 359.00 Tm
+(Funcionalidades) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 329.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 329.00 Tm
+(Registro de pagos de alquiler.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 314.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 314.00 Tm
+(Carga de comprobantes de pago.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 299.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 299.00 Tm
+(Registro de kilometraje informado.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 284.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 284.00 Tm
+(Visualizacion del historial de pagos.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 269.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 269.00 Tm
+(Filtros por vehiculo, conductor y rango de fechas.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 254.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 254.00 Tm
+(Impresion de comprobantes.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 239.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 239.00 Tm
+(Envio de comprobantes por email.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 224.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 224.00 Tm
+(Abono de infracciones adeudadas.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 209.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 209.00 Tm
+(Edicion de pagos.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 194.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 194.00 Tm
+(Anulacion o eliminacion de pagos segun permisos.) Tj
+ET
+BT
+0.090 0.200 0.360 rg
+/F2 14 Tf
+1 0 0 1 56.00 169.00 Tm
+(3.7 Gestion de seguros) Tj
+ET
+q 0.210 0.530 0.780 RG 1.20 w 56.00 165.00 m 236.00 165.00 l S Q
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 56.00 133.00 Tm
+(Modulo para administrar coberturas de seguro por vehiculo.) Tj
+ET
+BT
+0.210 0.530 0.780 rg
+/F2 11 Tf
+1 0 0 1 56.00 108.00 Tm
+(Datos administrados) Tj
+ET
+endstream
+endobj
+12 0 obj
+<< /Type /Page /Parent 23 0 R /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 11 0 R >>
+endobj
+13 0 obj
+<< /Length 5747 >>
+stream
+q 0.090 0.200 0.360 rg 0.00 794.00 595.00 48.00 re f Q
+q 0.210 0.530 0.780 rg 0.00 790.00 595.00 4.00 re f Q
+BT
+1.000 1.000 1.000 rg
+/F2 12 Tf
+1 0 0 1 56.00 810.00 Tm
+(RentCar · Funcionalidades de la aplicacion) Tj
+ET
+q 0.820 0.850 0.880 RG 0.80 w 56.00 52.00 m 539.00 52.00 l S Q
+BT
+0.460 0.500 0.560 rg
+/F1 9 Tf
+1 0 0 1 56.00 34.00 Tm
+(Documento funcional institucional) Tj
+ET
+BT
+0.460 0.500 0.560 rg
+/F2 9 Tf
+1 0 0 1 485.00 34.00 Tm
+(Pagina 5/9) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 730.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 730.00 Tm
+(Numero de poliza.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 715.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 715.00 Tm
+(Numero de endoso.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 700.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 700.00 Tm
+(Datos del asegurado.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 685.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 685.00 Tm
+(Compania de seguros.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 670.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 670.00 Tm
+(Telefono de contacto.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 655.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 655.00 Tm
+(Codigo de pago electronico.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 640.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 640.00 Tm
+(Fecha de vigencia desde y hasta.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 625.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 625.00 Tm
+(PDF de poliza.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 610.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 610.00 Tm
+(Imagen de credencial.) Tj
+ET
+BT
+0.210 0.530 0.780 rg
+/F2 11 Tf
+1 0 0 1 56.00 585.00 Tm
+(Funcionalidades) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 555.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 555.00 Tm
+(Alta de coberturas.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 540.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 540.00 Tm
+(Edicion de coberturas.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 525.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 525.00 Tm
+(Eliminacion por admin.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 510.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 510.00 Tm
+(Consulta de polizas vigentes o vencidas.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 495.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 495.00 Tm
+(Descarga de poliza y credencial.) Tj
+ET
+BT
+0.090 0.200 0.360 rg
+/F2 14 Tf
+1 0 0 1 56.00 470.00 Tm
+(3.8 Gestion de infracciones) Tj
+ET
+q 0.210 0.530 0.780 RG 1.20 w 56.00 466.00 m 236.00 466.00 l S Q
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 56.00 434.00 Tm
+(Modulo para registrar infracciones asociadas a vehiculos y conductores.) Tj
+ET
+BT
+0.210 0.530 0.780 rg
+/F2 11 Tf
+1 0 0 1 56.00 409.00 Tm
+(Datos administrados) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 379.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 379.00 Tm
+(Vehiculo.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 364.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 364.00 Tm
+(Conductor.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 349.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 349.00 Tm
+(Fecha de infraccion.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 334.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 334.00 Tm
+(Numero de acta.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 319.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 319.00 Tm
+(Tipo.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 304.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 304.00 Tm
+(Descripcion.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 289.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 289.00 Tm
+(Lugar.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 274.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 274.00 Tm
+(Monto.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 259.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 259.00 Tm
+(Estado: ADEUDADA o PAGADA.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 244.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 244.00 Tm
+(Fecha de pago.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 229.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 229.00 Tm
+(Adjuntos y comprobantes.) Tj
+ET
+BT
+0.210 0.530 0.780 rg
+/F2 11 Tf
+1 0 0 1 56.00 204.00 Tm
+(Funcionalidades) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 174.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 174.00 Tm
+(Alta de infracciones.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 159.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 159.00 Tm
+(Edicion de infracciones.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 144.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 144.00 Tm
+(Eliminacion por admin.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 129.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 129.00 Tm
+(Consulta del historial de infracciones.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 114.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 114.00 Tm
+(Integracion con el modulo de pagos para registrar abonos.) Tj
+ET
+endstream
+endobj
+14 0 obj
+<< /Type /Page /Parent 23 0 R /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 13 0 R >>
+endobj
+15 0 obj
+<< /Length 5123 >>
+stream
+q 0.090 0.200 0.360 rg 0.00 794.00 595.00 48.00 re f Q
+q 0.210 0.530 0.780 rg 0.00 790.00 595.00 4.00 re f Q
+BT
+1.000 1.000 1.000 rg
+/F2 12 Tf
+1 0 0 1 56.00 810.00 Tm
+(RentCar · Funcionalidades de la aplicacion) Tj
+ET
+q 0.820 0.850 0.880 RG 0.80 w 56.00 52.00 m 539.00 52.00 l S Q
+BT
+0.460 0.500 0.560 rg
+/F1 9 Tf
+1 0 0 1 56.00 34.00 Tm
+(Documento funcional institucional) Tj
+ET
+BT
+0.460 0.500 0.560 rg
+/F2 9 Tf
+1 0 0 1 485.00 34.00 Tm
+(Pagina 6/9) Tj
+ET
+BT
+0.090 0.200 0.360 rg
+/F2 14 Tf
+1 0 0 1 56.00 730.00 Tm
+(3.9 Gestion de mantenimientos) Tj
+ET
+q 0.210 0.530 0.780 RG 1.20 w 56.00 726.00 m 236.00 726.00 l S Q
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 56.00 694.00 Tm
+(Modulo para llevar control de mantenimientos de vehiculos.) Tj
+ET
+BT
+0.210 0.530 0.780 rg
+/F2 11 Tf
+1 0 0 1 56.00 669.00 Tm
+(Datos administrados) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 639.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 639.00 Tm
+(Vehiculo.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 624.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 624.00 Tm
+(Fecha de mantenimiento.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 609.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 609.00 Tm
+(Tipo.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 594.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 594.00 Tm
+(Descripcion.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 579.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 579.00 Tm
+(Kilometraje.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 564.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 564.00 Tm
+(Proximo service.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 549.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 549.00 Tm
+(Costo.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 534.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 534.00 Tm
+(Estado: PENDIENTE o REALIZADO.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 519.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 519.00 Tm
+(Comprobante.) Tj
+ET
+BT
+0.210 0.530 0.780 rg
+/F2 11 Tf
+1 0 0 1 56.00 494.00 Tm
+(Funcionalidades) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 464.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 464.00 Tm
+(Alta de mantenimientos.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 449.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 449.00 Tm
+(Edicion de mantenimientos.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 434.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 434.00 Tm
+(Eliminacion por admin.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 419.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 419.00 Tm
+(Visualizacion de pendientes en dashboard.) Tj
+ET
+BT
+0.090 0.200 0.360 rg
+/F2 14 Tf
+1 0 0 1 56.00 394.00 Tm
+(3.10 Portal del conductor) Tj
+ET
+q 0.210 0.530 0.780 RG 1.20 w 56.00 390.00 m 236.00 390.00 l S Q
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 56.00 358.00 Tm
+(Vista exclusiva para usuarios con rol conductor.) Tj
+ET
+BT
+0.210 0.530 0.780 rg
+/F2 11 Tf
+1 0 0 1 56.00 333.00 Tm
+(Objetivo) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 56.00 303.00 Tm
+(Permitir que el conductor consulte y gestione su informacion personal y operativa) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 56.00 288.00 Tm
+(sin acceder a los modulos administrativos.) Tj
+ET
+BT
+0.210 0.530 0.780 rg
+/F2 11 Tf
+1 0 0 1 56.00 263.00 Tm
+(Informacion disponible) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 233.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 233.00 Tm
+(Nombre y datos del conductor vinculado.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 218.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 218.00 Tm
+(Vehiculo asociado por alquiler activo o por asignacion directa.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 203.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 203.00 Tm
+(Seguro vigente del vehiculo asociado.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 188.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 188.00 Tm
+(Historial de solicitudes de servicio.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 173.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 173.00 Tm
+(Historial de infracciones.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 158.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 158.00 Tm
+(Saldo pendiente total.) Tj
+ET
+BT
+0.210 0.530 0.780 rg
+/F2 11 Tf
+1 0 0 1 56.00 133.00 Tm
+(Funcionalidades del portal) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 103.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 103.00 Tm
+(Ver saldo pendiente en un modal.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 88.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 88.00 Tm
+(Ver deuda discriminada entre alquiler e infracciones.) Tj
+ET
+endstream
+endobj
+16 0 obj
+<< /Type /Page /Parent 23 0 R /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 15 0 R >>
+endobj
+17 0 obj
+<< /Length 5626 >>
+stream
+q 0.090 0.200 0.360 rg 0.00 794.00 595.00 48.00 re f Q
+q 0.210 0.530 0.780 rg 0.00 790.00 595.00 4.00 re f Q
+BT
+1.000 1.000 1.000 rg
+/F2 12 Tf
+1 0 0 1 56.00 810.00 Tm
+(RentCar · Funcionalidades de la aplicacion) Tj
+ET
+q 0.820 0.850 0.880 RG 0.80 w 56.00 52.00 m 539.00 52.00 l S Q
+BT
+0.460 0.500 0.560 rg
+/F1 9 Tf
+1 0 0 1 56.00 34.00 Tm
+(Documento funcional institucional) Tj
+ET
+BT
+0.460 0.500 0.560 rg
+/F2 9 Tf
+1 0 0 1 485.00 34.00 Tm
+(Pagina 7/9) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 730.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 730.00 Tm
+(Ver historial de infracciones y su estado.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 715.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 715.00 Tm
+(Descargar poliza del seguro.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 700.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 700.00 Tm
+(Descargar credencial del seguro.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 685.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 685.00 Tm
+(Descargar contrato si existe un alquiler activo.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 670.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 670.00 Tm
+(Cambiar la contraseña de acceso.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 655.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 655.00 Tm
+(Cargar una nueva solicitud de servicio en estado PENDIENTE.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 640.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 640.00 Tm
+(Visualizar el historial de solicitudes ya generadas.) Tj
+ET
+BT
+0.210 0.530 0.780 rg
+/F2 11 Tf
+1 0 0 1 56.00 615.00 Tm
+(Reglas del portal) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 585.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 585.00 Tm
+(La informacion del portal se trae a partir de la relacion entre el usuario) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 570.00 Tm
+(autenticado y su conductor vinculado.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 555.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 555.00 Tm
+(Si el usuario conductor no estaba vinculado pero coincide por email con un) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 540.00 Tm
+(conductor libre, el sistema intenta resolver esa relacion automaticamente) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 525.00 Tm
+(al iniciar sesion o al consultar el perfil.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 510.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 510.00 Tm
+(Si no hay alquiler activo, el portal puede usar el vehiculo asignado) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 495.00 Tm
+(directamente al conductor como respaldo para mostrar datos del vehiculo y) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 480.00 Tm
+(del seguro.) Tj
+ET
+BT
+0.090 0.200 0.360 rg
+/F2 14 Tf
+1 0 0 1 56.00 455.00 Tm
+(3.11 Solicitudes de servicio) Tj
+ET
+q 0.210 0.530 0.780 RG 1.20 w 56.00 451.00 m 236.00 451.00 l S Q
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 56.00 419.00 Tm
+(Modulo funcional soportado desde el portal del conductor.) Tj
+ET
+BT
+0.210 0.530 0.780 rg
+/F2 11 Tf
+1 0 0 1 56.00 394.00 Tm
+(Datos administrados) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 364.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 364.00 Tm
+(Conductor solicitante.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 349.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 349.00 Tm
+(Alquiler asociado si existe.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 334.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 334.00 Tm
+(Vehiculo asociado.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 319.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 319.00 Tm
+(Titulo.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 304.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 304.00 Tm
+(Descripcion.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 289.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 289.00 Tm
+(Estado.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 274.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 274.00 Tm
+(Fecha de creacion.) Tj
+ET
+BT
+0.210 0.530 0.780 rg
+/F2 11 Tf
+1 0 0 1 56.00 249.00 Tm
+(Funcionalidades) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 219.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 219.00 Tm
+(Alta de solicitudes desde el portal del conductor.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 204.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 204.00 Tm
+(Creacion inicial en estado PENDIENTE.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 189.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 189.00 Tm
+(Relacion con conductor, vehiculo y alquiler.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 174.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 174.00 Tm
+(Consulta del historial en el portal.) Tj
+ET
+BT
+0.090 0.200 0.360 rg
+/F2 14 Tf
+1 0 0 1 56.00 149.00 Tm
+(4. Relaciones funcionales clave) Tj
+ET
+q 0.210 0.530 0.780 RG 1.20 w 56.00 145.00 m 236.00 145.00 l S Q
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 56.00 113.00 Tm
+(La aplicacion trabaja con varias relaciones entre entidades para consolidar) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 56.00 98.00 Tm
+(informacion.) Tj
+ET
+endstream
+endobj
+18 0 obj
+<< /Type /Page /Parent 23 0 R /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 17 0 R >>
+endobj
+19 0 obj
+<< /Length 5510 >>
+stream
+q 0.090 0.200 0.360 rg 0.00 794.00 595.00 48.00 re f Q
+q 0.210 0.530 0.780 rg 0.00 790.00 595.00 4.00 re f Q
+BT
+1.000 1.000 1.000 rg
+/F2 12 Tf
+1 0 0 1 56.00 810.00 Tm
+(RentCar · Funcionalidades de la aplicacion) Tj
+ET
+q 0.820 0.850 0.880 RG 0.80 w 56.00 52.00 m 539.00 52.00 l S Q
+BT
+0.460 0.500 0.560 rg
+/F1 9 Tf
+1 0 0 1 56.00 34.00 Tm
+(Documento funcional institucional) Tj
+ET
+BT
+0.460 0.500 0.560 rg
+/F2 9 Tf
+1 0 0 1 485.00 34.00 Tm
+(Pagina 8/9) Tj
+ET
+BT
+0.210 0.530 0.780 rg
+/F2 11 Tf
+1 0 0 1 56.00 730.00 Tm
+(Relaciones principales) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 700.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 700.00 Tm
+(Usuario puede estar vinculado a un conductor.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 685.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 685.00 Tm
+(Conductor puede tener un vehiculo asignado.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 670.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 670.00 Tm
+(Conductor puede tener multiples alquileres.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 655.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 655.00 Tm
+(Alquiler vincula conductor y vehiculo.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 640.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 640.00 Tm
+(Pago pertenece a un alquiler.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 625.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 625.00 Tm
+(Infraccion puede vincular conductor y vehiculo.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 610.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 610.00 Tm
+(Seguro pertenece a un vehiculo.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 595.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 595.00 Tm
+(Mantenimiento pertenece a un vehiculo.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 580.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 580.00 Tm
+(Solicitud de servicio pertenece a un conductor y puede vincular alquiler y) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 565.00 Tm
+(vehiculo.) Tj
+ET
+BT
+0.090 0.200 0.360 rg
+/F2 14 Tf
+1 0 0 1 56.00 540.00 Tm
+(5. Documentacion y archivos adjuntos) Tj
+ET
+q 0.210 0.530 0.780 RG 1.20 w 56.00 536.00 m 236.00 536.00 l S Q
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 56.00 504.00 Tm
+(La aplicacion permite almacenar y exponer archivos operativos.) Tj
+ET
+BT
+0.210 0.530 0.780 rg
+/F2 11 Tf
+1 0 0 1 56.00 479.00 Tm
+(Tipos de archivos utilizados) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 449.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 449.00 Tm
+(Contratos de alquiler en PDF.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 434.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 434.00 Tm
+(Documentos de conductores.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 419.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 419.00 Tm
+(Comprobantes de pagos.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 404.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 404.00 Tm
+(Adjuntos y comprobantes de infracciones.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 389.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 389.00 Tm
+(Polizas de seguro.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 374.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 374.00 Tm
+(Credenciales de seguro.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 359.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 359.00 Tm
+(Comprobantes de mantenimiento.) Tj
+ET
+BT
+0.210 0.530 0.780 rg
+/F2 11 Tf
+1 0 0 1 56.00 334.00 Tm
+(Consideraciones) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 304.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 304.00 Tm
+(Los archivos se almacenan en el disco publico de Laravel.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 289.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 289.00 Tm
+(Es necesario tener activo el enlace de storage para acceder a las URLs) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 274.00 Tm
+(publicas.) Tj
+ET
+BT
+0.090 0.200 0.360 rg
+/F2 14 Tf
+1 0 0 1 56.00 249.00 Tm
+(6. Seguridad y permisos) Tj
+ET
+q 0.210 0.530 0.780 RG 1.20 w 56.00 245.00 m 236.00 245.00 l S Q
+BT
+0.210 0.530 0.780 rg
+/F2 11 Tf
+1 0 0 1 56.00 213.00 Tm
+(Seguridad de acceso) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 183.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 183.00 Tm
+(Autenticacion por token.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 168.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 168.00 Tm
+(Rutas protegidas por Sanctum.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 153.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 153.00 Tm
+(Middleware de roles en backend.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 138.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 138.00 Tm
+(Control de permisos y visibilidad en frontend.) Tj
+ET
+BT
+0.210 0.530 0.780 rg
+/F2 11 Tf
+1 0 0 1 56.00 113.00 Tm
+(Logica de permisos) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 83.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 83.00 Tm
+(Admin puede acceder a todo.) Tj
+ET
+endstream
+endobj
+20 0 obj
+<< /Type /Page /Parent 23 0 R /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 19 0 R >>
+endobj
+21 0 obj
+<< /Length 3516 >>
+stream
+q 0.090 0.200 0.360 rg 0.00 794.00 595.00 48.00 re f Q
+q 0.210 0.530 0.780 rg 0.00 790.00 595.00 4.00 re f Q
+BT
+1.000 1.000 1.000 rg
+/F2 12 Tf
+1 0 0 1 56.00 810.00 Tm
+(RentCar · Funcionalidades de la aplicacion) Tj
+ET
+q 0.820 0.850 0.880 RG 0.80 w 56.00 52.00 m 539.00 52.00 l S Q
+BT
+0.460 0.500 0.560 rg
+/F1 9 Tf
+1 0 0 1 56.00 34.00 Tm
+(Documento funcional institucional) Tj
+ET
+BT
+0.460 0.500 0.560 rg
+/F2 9 Tf
+1 0 0 1 485.00 34.00 Tm
+(Pagina 9/9) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 730.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 730.00 Tm
+(Consultor puede operar la gestion diaria sin eliminar.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 715.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 715.00 Tm
+(Conductor solo accede a su portal.) Tj
+ET
+BT
+0.090 0.200 0.360 rg
+/F2 14 Tf
+1 0 0 1 56.00 690.00 Tm
+(7. Beneficios operativos de la solucion) Tj
+ET
+q 0.210 0.530 0.780 RG 1.20 w 56.00 686.00 m 236.00 686.00 l S Q
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 654.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 654.00 Tm
+(Centraliza la operacion de alquiler de vehiculos.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 639.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 639.00 Tm
+(Mejora el control sobre deuda e infracciones.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 624.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 624.00 Tm
+(Organiza documentacion contractual y de seguros.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 609.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 609.00 Tm
+(Permite control de mantenimiento preventivo y correctivo.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 594.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 594.00 Tm
+(Da autonomia a los conductores mediante un portal dedicado.) Tj
+ET
+BT
+0.790 0.630 0.240 rg
+/F2 11 Tf
+1 0 0 1 58.00 579.00 Tm
+(-) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 70.00 579.00 Tm
+(Mantiene separacion clara entre perfiles administrativos y operativos.) Tj
+ET
+BT
+0.090 0.200 0.360 rg
+/F2 14 Tf
+1 0 0 1 56.00 554.00 Tm
+(8. Resumen ejecutivo) Tj
+ET
+q 0.210 0.530 0.780 RG 1.20 w 56.00 550.00 m 236.00 550.00 l S Q
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 56.00 518.00 Tm
+(RentCar es una plataforma de gestion orientada a alquiler vehicular con enfoque) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 56.00 503.00 Tm
+(administrativo y operativo. Los perfiles de administracion gestionan usuarios,) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 56.00 488.00 Tm
+(conductores, vehiculos, alquileres, pagos, seguros, infracciones y mantenimientos.) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 56.00 473.00 Tm
+(Los conductores disponen de un portal propio para consultar su informacion,) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 56.00 458.00 Tm
+(descargar documentacion, ver deuda, revisar infracciones, cambiar contraseña y) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 56.00 443.00 Tm
+(generar solicitudes de servicio.) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 56.00 418.00 Tm
+(La aplicacion esta preparada para operar con trazabilidad documental, control por) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 56.00 403.00 Tm
+(roles y relaciones entre entidades que permiten consolidar la informacion) Tj
+ET
+BT
+0.230 0.270 0.330 rg
+/F1 10.8 Tf
+1 0 0 1 56.00 388.00 Tm
+(relevante para cada usuario.) Tj
+ET
+endstream
+endobj
+22 0 obj
+<< /Type /Page /Parent 23 0 R /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 21 0 R >>
+endobj
+23 0 obj
+<< /Type /Pages /Kids [ 4 0 R 6 0 R 8 0 R 10 0 R 12 0 R 14 0 R 16 0 R 18 0 R 20 0 R 22 0 R ] /Count 10 /MediaBox [0 0 595 842] >>
+endobj
+24 0 obj
+<< /Type /Catalog /Pages 23 0 R >>
+endobj
+xref
+0 25
+0000000000 65535 f 
+0000000015 00000 n 
+0000000085 00000 n 
+0000000160 00000 n 
+0000001580 00000 n 
+0000001693 00000 n 
+0000006837 00000 n 
+0000006950 00000 n 
+0000012160 00000 n 
+0000012273 00000 n 
+0000017786 00000 n 
+0000017900 00000 n 
+0000023262 00000 n 
+0000023377 00000 n 
+0000029177 00000 n 
+0000029292 00000 n 
+0000034468 00000 n 
+0000034583 00000 n 
+0000040262 00000 n 
+0000040377 00000 n 
+0000045940 00000 n 
+0000046055 00000 n 
+0000049624 00000 n 
+0000049739 00000 n 
+0000049885 00000 n 
+trailer
+<< /Size 25 /Root 24 0 R >>
+startxref
+49936
+%%EOF

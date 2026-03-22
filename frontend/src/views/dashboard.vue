@@ -12,21 +12,40 @@ auth.fetchUser();
 
 <template>
   <div class="p-6 bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 min-h-0 flex-1 flex flex-col">
+    <div class="flex justify-end mb-4">
+      <button
+        type="button"
+        class="bg-slate-700 text-white px-4 py-2 rounded-lg shadow-md font-semibold transition-all duration-200 hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-300"
+        @click="handleLogout"
+      >
+        Cerrar sesión
+      </button>
+    </div>
+
     <!-- Botones arriba y centrados -->
     <div class="flex flex-wrap justify-center gap-3 mb-8">
-      <router-link to="/drivers" class="text-white bg-orange-500 px-6 py-3 rounded-xl shadow-md font-semibold text-lg transition-all duration-200 hover:bg-orange-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-orange-300">Conductores</router-link>
-      <router-link to="/vehicles" class="text-white bg-yellow-500 px-6 py-3 rounded-xl shadow-md font-semibold text-lg transition-all duration-200 hover:bg-yellow-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-300">Vehículos</router-link>
-      <router-link to="/rentals" class="text-white bg-red-400 px-6 py-3 rounded-xl shadow-md font-semibold text-lg transition-all duration-200 hover:bg-red-500 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-200">Alquileres</router-link>
-      <router-link to="/payments" class="text-white bg-pink-500 px-6 py-3 rounded-xl shadow-md font-semibold text-lg transition-all duration-200 hover:bg-pink-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-300">Pagos</router-link>
-      <router-link to="/insurance-coverages" class="text-white bg-cyan-600 px-6 py-3 rounded-xl shadow-md font-semibold text-lg transition-all duration-200 hover:bg-cyan-700 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-cyan-300">Seguros</router-link>
-      <router-link to="/traffic-infractions" class="text-white bg-rose-600 px-6 py-3 rounded-xl shadow-md font-semibold text-lg transition-all duration-200 hover:bg-rose-700 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-rose-300">Infracciones</router-link>
-      <router-link to="/vehicle-maintenances" class="text-white bg-indigo-600 px-6 py-3 rounded-xl shadow-md font-semibold text-lg transition-all duration-200 hover:bg-indigo-700 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-300">Mantenimientos</router-link>
+      <router-link v-if="canAccess('users')" to="/users" class="text-white bg-slate-600 px-6 py-3 rounded-xl shadow-md font-semibold text-lg transition-all duration-200 hover:bg-slate-700 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-slate-300">Usuarios</router-link>
+      <router-link v-if="canAccess('drivers')" to="/drivers" class="text-white bg-orange-500 px-6 py-3 rounded-xl shadow-md font-semibold text-lg transition-all duration-200 hover:bg-orange-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-orange-300">Conductores</router-link>
+      <router-link v-if="canAccess('vehicles')" to="/vehicles" class="text-white bg-yellow-500 px-6 py-3 rounded-xl shadow-md font-semibold text-lg transition-all duration-200 hover:bg-yellow-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-300">Vehículos</router-link>
+      <router-link v-if="canAccess('rentals')" to="/rentals" class="text-white bg-red-400 px-6 py-3 rounded-xl shadow-md font-semibold text-lg transition-all duration-200 hover:bg-red-500 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-200">Alquileres</router-link>
+      <router-link v-if="canAccess('payments')" to="/payments" class="text-white bg-pink-500 px-6 py-3 rounded-xl shadow-md font-semibold text-lg transition-all duration-200 hover:bg-pink-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-300">Pagos</router-link>
+      <router-link v-if="canAccess('insuranceCoverages')" to="/insurance-coverages" class="text-white bg-cyan-600 px-6 py-3 rounded-xl shadow-md font-semibold text-lg transition-all duration-200 hover:bg-cyan-700 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-cyan-300">Seguros</router-link>
+      <router-link v-if="canAccess('trafficInfractions')" to="/traffic-infractions" class="text-white bg-rose-600 px-6 py-3 rounded-xl shadow-md font-semibold text-lg transition-all duration-200 hover:bg-rose-700 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-rose-300">Infracciones</router-link>
+      <router-link v-if="canAccess('vehicleMaintenances')" to="/vehicle-maintenances" class="text-white bg-indigo-600 px-6 py-3 rounded-xl shadow-md font-semibold text-lg transition-all duration-200 hover:bg-indigo-700 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-300">Mantenimientos</router-link>
     </div>
 
     <p class="text-gray-500 mb-6 text-center">Indicadores Generales del sistema</p>
 
+    <div v-if="loadError" class="mb-6 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-center text-amber-800">
+      {{ loadError }}
+    </div>
+
+    <div v-if="!canViewManagementData" class="bg-white rounded shadow p-6 text-center text-slate-600 mb-8">
+      Tu usuario tiene acceso de consulta limitada. Desde esta cuenta no se cargan módulos administrativos ni métricas globales.
+    </div>
+
     <!-- Estadísticas -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div v-if="canViewManagementData" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
       <div class="bg-white rounded shadow p-6 flex flex-col items-center">
         <!-- Icono vehículo -->
         <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mb-2 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 13l2-5a2 2 0 012-1h10a2 2 0 012 1l2 5M5 13v4a1 1 0 001 1h1a1 1 0 001-1v-1h8v1a1 1 0 001 1h1a1 1 0 001-1v-4M7 16h.01M17 16h.01" /></svg>
@@ -48,7 +67,7 @@ auth.fetchUser();
     </div>
 
     <!-- Alertas de vencimientos -->
-    <div v-if="alerts.length" class="mb-8">
+    <div v-if="canViewManagementData && alerts.length" class="mb-8">
       <h2 class="text-lg font-semibold mb-2 text-red-600">Próximos alquileres a vencer</h2>
       <ul class="bg-white rounded shadow p-4">
         <li v-for="alert in alerts" :key="alert.id" class="mb-2">
@@ -61,7 +80,7 @@ auth.fetchUser();
     </div>
 
     <!-- Alquileres vencidos -->
-    <div v-if="expired.length" class="mb-8">
+    <div v-if="canViewManagementData && expired.length" class="mb-8">
       <h2 class="text-lg font-semibold mb-2 text-orange-600">Alquileres vencidos</h2>
       <ul class="bg-white rounded shadow p-4">
         <li v-for="exp in expired" :key="exp.id" class="mb-2">
@@ -73,7 +92,7 @@ auth.fetchUser();
       </ul>
     </div>
 
-    <div v-if="expiredPolicies.length" class="mb-8">
+    <div v-if="canViewManagementData && expiredPolicies.length" class="mb-8">
       <h2 class="text-lg font-semibold mb-2 text-red-700">Vehículos con póliza vencida</h2>
       <ul class="bg-white rounded shadow p-4">
         <li v-for="policy in expiredPolicies" :key="policy.id" class="mb-2">
@@ -85,7 +104,7 @@ auth.fetchUser();
       </ul>
     </div>
 
-    <div v-if="vehiclesWithoutInsurance.length" class="mb-8">
+    <div v-if="canViewManagementData && vehiclesWithoutInsurance.length" class="mb-8">
       <h2 class="text-lg font-semibold mb-2 text-amber-700">Vehículos sin seguro</h2>
       <ul class="bg-white rounded shadow p-4">
         <li v-for="vehicle in vehiclesWithoutInsurance" :key="vehicle.id" class="mb-2">
@@ -95,7 +114,7 @@ auth.fetchUser();
       </ul>
     </div>
 
-    <div v-if="pendingMaintenances.length" class="mb-8">
+    <div v-if="canViewManagementData && pendingMaintenances.length" class="mb-8">
       <h2 class="text-lg font-semibold mb-2 text-indigo-700">Mantenimientos pendientes</h2>
       <ul class="bg-white rounded shadow p-4">
         <li v-for="maintenance in pendingMaintenances" :key="maintenance.id" class="mb-2">
@@ -111,17 +130,42 @@ auth.fetchUser();
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { computed, ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import api from '../api/axios';
 import { useAuthStore } from '../stores/auth';
+import { canAccessPermission } from '../lib/permissions';
 
 const auth = useAuthStore();
+const router = useRouter();
+const parsedStoredUser = computed(() => {
+  const rawUser = localStorage.getItem('user');
+
+  if (!rawUser) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(rawUser);
+  } catch {
+    return null;
+  }
+});
+const effectiveRole = computed(() => auth.role || parsedStoredUser.value?.role || null);
+const canAccess = (permission) => canAccessPermission(effectiveRole.value, permission);
+const canViewManagementData = computed(() => canAccess('drivers'));
 const stats = ref({ vehicles: 0, drivers: 0, rentals: 0 });
 const alerts = ref([]);
 const expired = ref([]);
 const expiredPolicies = ref([]);
 const vehiclesWithoutInsurance = ref([]);
 const pendingMaintenances = ref([]);
+const loadError = ref('');
+
+const handleLogout = async () => {
+  auth.logout();
+  await router.push('/login');
+};
 
 const getRentalEndDate = (rental) => {
   if (!rental.start_date || !rental.type) return null;
@@ -135,6 +179,7 @@ const getRentalEndDate = (rental) => {
 };
 
 const loadStats = async () => {
+  loadError.value = '';
   const [vehiclesRes, driversRes, rentalsRes, coveragesRes, maintenancesRes] = await Promise.all([
     api.get('/vehicles'),
     api.get('/drivers'),
@@ -219,10 +264,24 @@ const loadStats = async () => {
     }));
 };
 
-onMounted(() => {
-  if (!auth.user) {
-    auth.fetchUser();
+onMounted(async () => {
+  try {
+    auth.syncSessionFromStorage();
+    await auth.ensureUserLoaded();
+  } catch {
+    auth.logout();
+    await router.push('/login');
+    return;
   }
-  loadStats();
+
+  if (!canViewManagementData.value) {
+    return;
+  }
+
+  try {
+    await loadStats();
+  } catch {
+    loadError.value = 'No se pudieron cargar las metricas del dashboard en este momento.';
+  }
 });
 </script>

@@ -9,7 +9,7 @@
     <router-link to="/" class="inline-flex items-center gap-2 mb-4 bg-slate-700 px-6 py-3 rounded-xl shadow-md font-semibold text-white text-base transition-all duration-200 hover:bg-slate-800 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-slate-300">← Volver al Dashboard</router-link>
     <h1 class="text-2xl font-bold mb-4">Gestión de Vehículos</h1>
 
-    <div class="bg-white p-4 rounded shadow mb-6">
+    <div v-if="canManageVehicles" class="bg-white p-4 rounded shadow mb-6">
       <form @submit.prevent="storeVehicle" class="space-y-3">
         <div>
           <label class="block font-medium">Marca</label>
@@ -42,6 +42,10 @@
 
       <p class="text-sm mt-2 text-green-600" v-if="status">{{ status }}</p>
       <p class="text-sm mt-2 text-red-600" v-if="error">{{ error }}</p>
+    </div>
+
+    <div v-else class="bg-white p-4 rounded shadow mb-6 text-sm text-slate-600">
+      Tu rol tiene acceso de solo lectura en esta vista.
     </div>
 
     <div class="bg-white p-4 rounded shadow">
@@ -232,7 +236,10 @@
 <script setup>
 import { computed, ref, onMounted } from 'vue';
 import api from '../api/axios';
+import { useAuthStore } from '../stores/auth';
 
+const auth = useAuthStore();
+const canManageVehicles = computed(() => auth.hasManage('vehicles'));
 const vehicles = ref([]);
 const coverages = ref([]);
 const maintenances = ref([]);

@@ -8,7 +8,7 @@
     <router-link to="/" class="inline-flex items-center gap-2 mb-4 bg-slate-700 px-6 py-3 rounded-xl shadow-md font-semibold text-white text-base transition-all duration-200 hover:bg-slate-800 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-slate-300">← Volver al Dashboard</router-link>
     <h1 class="text-2xl font-bold mb-4">Alta de Conductores</h1>
 
-    <div class="bg-white p-4 rounded shadow mb-6">
+    <div v-if="canManageDrivers" class="bg-white p-4 rounded shadow mb-6">
       <form @submit.prevent="editingDriver ? updateDriver() : storeDriver()" class="space-y-3">
         <div>
           <label class="block font-medium">Nombre</label>
@@ -47,6 +47,10 @@
 
       <p class="text-sm mt-2 text-green-600" v-if="status">{{ status }}</p>
       <p class="text-sm mt-2 text-red-600" v-if="error">{{ error }}</p>
+    </div>
+
+    <div v-else class="bg-white p-4 rounded shadow mb-6 text-sm text-slate-600">
+      Tu rol tiene acceso de solo lectura en esta vista.
     </div>
 
     <div class="bg-white p-4 rounded shadow">
@@ -103,13 +107,16 @@
               </button>
             </td>
             <td class="p-2 border">
-              <button class="text-blue-600 underline mr-2" @click="editDriver(driver)">Editar</button>
-              <button
-                :class="driver.enabled ? 'text-red-600 underline' : 'text-green-600 underline'"
-                @click="toggleDriver(driver)"
-              >
-                {{ driver.enabled ? 'Deshabilitar' : 'Habilitar' }}
-              </button>
+              <template v-if="canManageDrivers">
+                <button class="text-blue-600 underline mr-2" @click="editDriver(driver)">Editar</button>
+                <button
+                  :class="driver.enabled ? 'text-red-600 underline' : 'text-green-600 underline'"
+                  @click="toggleDriver(driver)"
+                >
+                  {{ driver.enabled ? 'Deshabilitar' : 'Habilitar' }}
+                </button>
+              </template>
+              <span v-else class="text-gray-400">Solo lectura</span>
             </td>
           </tr>
           <tr v-if="filteredDrivers.length === 0">
@@ -169,7 +176,10 @@
 <script setup>
 import { computed, ref, onMounted } from 'vue';
 import api from '../api/axios';
+import { useAuthStore } from '../stores/auth';
 
+const auth = useAuthStore();
+const canManageDrivers = computed(() => auth.canManage('drivers'));
 const drivers = ref([]);
 const rentals = ref([]);
 const infractions = ref([]);

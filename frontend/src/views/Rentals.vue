@@ -8,7 +8,7 @@
     <router-link to="/" class="inline-flex items-center gap-2 mb-4 bg-slate-700 px-6 py-3 rounded-xl shadow-md font-semibold text-white text-base transition-all duration-200 hover:bg-slate-800 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-slate-300">← Volver al Dashboard</router-link>
     <h1 class="text-2xl font-bold mb-4">Gestión de Alquileres</h1>
 
-    <div class="bg-white p-4 rounded shadow mb-6">
+    <div v-if="canManageRentals" class="bg-white p-4 rounded shadow mb-6">
       <form @submit.prevent="storeRental" class="space-y-3">
         <div>
           <label class="block font-medium">Conductor</label>
@@ -74,6 +74,10 @@
       <p class="text-sm mt-2 text-red-600" v-if="error">{{ error }}</p>
     </div>
 
+    <div v-else class="bg-white p-4 rounded shadow mb-6 text-sm text-slate-600">
+      Tu rol tiene acceso de solo lectura en esta vista.
+    </div>
+
     <div class="bg-white p-4 rounded shadow">
       <h2 class="text-xl font-semibold mb-3">Listado de alquileres</h2>
       <div class="flex flex-wrap gap-4 mb-4 items-end">
@@ -122,19 +126,20 @@
             </td>
             <td class="p-2 border text-center">{{ rental.active ? 'Sí' : 'No' }}</td>
             <td class="p-2 border text-center">
-              <div class="flex justify-center gap-2">
+              <div v-if="canManageRentals || canDeleteRentals" class="flex justify-center gap-2">
                 <button @click="openEditModal(rental)" title="Editar" class="hover:text-yellow-500">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: #eab308;">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536M9 13l6-6m2 2l-6 6m-2 2h6" />
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16.243 3.757a2.828 2.828 0 114 4L7.5 21H3v-4.5L16.243 3.757z" />
                   </svg>
                 </button>
-                <button @click="openDeleteModal(rental)" title="Eliminar" class="hover:text-red-600">
+                <button v-if="canDeleteRentals" @click="openDeleteModal(rental)" title="Eliminar" class="hover:text-red-600">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: #ef4444;">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
               </div>
+              <span v-else class="text-gray-400">Solo lectura</span>
             </td>
           </tr>
           <tr v-if="filteredRentals.length === 0">
@@ -143,7 +148,7 @@
         </tbody>
       </table>
 
-      <div v-if="showEditModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+      <div v-if="canManageRentals && showEditModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
         <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
           <h3 class="text-lg font-bold mb-4">Editar Alquiler</h3>
           <div class="mb-2">
@@ -171,7 +176,7 @@
         </div>
       </div>
 
-      <div v-if="showDeleteModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+      <div v-if="canDeleteRentals && showDeleteModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
         <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
           <h3 class="text-lg font-bold mb-4">¿Seguro que desea eliminar este alquiler?</h3>
           <div class="mb-4">
@@ -193,7 +198,11 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue';
 import api from '../api/axios';
+import { useAuthStore } from '../stores/auth';
 
+const auth = useAuthStore();
+const canManageRentals = computed(() => auth.canManage('rentals'));
+const canDeleteRentals = computed(() => auth.canDelete('rentals'));
 const rentals = ref([]);
 const drivers = ref([]);
 const vehicles = ref([]);

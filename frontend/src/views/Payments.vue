@@ -9,7 +9,7 @@
     <h2 class="text-2xl font-bold mb-4">Pagos</h2>
 
     <!-- FORM -->
-    <div class="bg-white p-4 rounded shadow mb-6">
+    <div v-if="canManagePayments" class="bg-white p-4 rounded shadow mb-6">
       <h3 class="font-semibold mb-2">Nuevo Pago</h3>
 
       <select v-model="form.rental_id" class="border p-2 w-full mb-2" @change="getDebt(form.rental_id)">
@@ -68,7 +68,11 @@
       </div>
     </div>
 
-    <div class="bg-white p-4 rounded shadow mb-6">
+    <div v-else class="bg-white p-4 rounded shadow mb-6 text-sm text-slate-600">
+      Tu rol tiene acceso de solo lectura en esta vista.
+    </div>
+
+    <div v-if="canManagePayments" class="bg-white p-4 rounded shadow mb-6">
       <h3 class="font-semibold mb-2">Abono de Infracción</h3>
 
       <select v-model="selectedInfractionId" class="border p-2 w-full mb-2" @change="handleInfractionSelection">
@@ -158,17 +162,20 @@
             <span v-else class="text-gray-500">-</span>
           </td>
           <td class="p-2 flex gap-2 justify-center">
-            <button @click="openEditModal(p)" title="Editar" class="hover:text-yellow-500">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: #eab308;">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536M9 13l6-6m2 2l-6 6m-2 2h6" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16.243 3.757a2.828 2.828 0 114 4L7.5 21H3v-4.5L16.243 3.757z" />
-              </svg>
-            </button>
-            <button @click="openAnnulModal(p)" title="Anular" class="hover:text-red-600">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: #ef4444;">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
+            <template v-if="canManagePayments || canDeletePayments">
+              <button @click="openEditModal(p)" title="Editar" class="hover:text-yellow-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: #eab308;">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536M9 13l6-6m2 2l-6 6m-2 2h6" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16.243 3.757a2.828 2.828 0 114 4L7.5 21H3v-4.5L16.243 3.757z" />
+                </svg>
+              </button>
+              <button v-if="canDeletePayments" @click="openAnnulModal(p)" title="Anular" class="hover:text-red-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: #ef4444;">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </template>
+            <span v-else class="text-gray-400">Solo lectura</span>
           </td>
         </tr>
       </tbody>
@@ -236,7 +243,7 @@
     </table>
 
     <!-- Modal editar pago -->
-    <div v-if="showEditModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+    <div v-if="canManagePayments && showEditModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
       <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
         <h3 class="text-lg font-bold mb-4">Editar Pago</h3>
         <div class="mb-2">
@@ -256,7 +263,7 @@
     </div>
 
     <!-- Modal anular pago -->
-    <div v-if="showAnnulModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+    <div v-if="canDeletePayments && showAnnulModal" class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
       <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
         <h3 class="text-lg font-bold mb-4">¿Seguro que desea anular este pago?</h3>
         <div class="mb-4">
@@ -284,6 +291,14 @@
 </template>
 
 <script setup>
+import { computed, ref, onMounted } from 'vue';
+import api from '../api/axios';
+import { useAuthStore } from '../stores/auth';
+
+const auth = useAuthStore();
+const canManagePayments = computed(() => auth.canManage('payments'));
+const canDeletePayments = computed(() => auth.canDelete('payments'));
+
 // Acciones editar/anular pago
 const showEditModal = ref(false);
 const showAnnulModal = ref(false);
@@ -347,7 +362,6 @@ const uniqueDrivers = computed(() => {
   return Object.values(map);
 });
 // Filtros para historial de pagos
-import { computed } from 'vue';
 const filterVehicle = ref('');
 const filterDateFrom = ref('');
 const filterDateTo = ref('');
@@ -426,9 +440,6 @@ const handlePrint = () => {
   showActionModal.value = false;
   showReceipt.value = true;
 };
-
-import { ref, onMounted } from 'vue';
-import api from '../api/axios';
 
 // Variables reactivas para el flujo de comprobante
 const showActionModal = ref(false);

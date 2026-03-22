@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\InsuranceCoverageController;
 use App\Http\Controllers\Api\TrafficInfractionController;
 use App\Http\Controllers\Api\VehicleMaintenanceController;
+use App\Http\Controllers\Api\UserController;
 
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -59,6 +60,11 @@ Route::middleware(['auth:sanctum', 'role:admin,consultor'])->group(function () {
 });
 
 Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
+    Route::get('/users', [UserController::class, 'index']);
+    Route::post('/users', [UserController::class, 'store']);
+    Route::put('/users/{id}', [UserController::class, 'update']);
+    Route::post('/users/{id}/reset-password', [UserController::class, 'resetPassword']);
+
     Route::delete('/insurance-coverages/{id}', [InsuranceCoverageController::class, 'destroy']);
     Route::delete('/traffic-infractions/{id}', [TrafficInfractionController::class, 'destroy']);
     Route::delete('/vehicle-maintenances/{id}', [VehicleMaintenanceController::class, 'destroy']);

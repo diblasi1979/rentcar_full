@@ -8,6 +8,7 @@ import Rentals from '../views/Rentals.vue';
 import InsuranceCoverages from '../views/InsuranceCoverages.vue';
 import TrafficInfractions from '../views/TrafficInfractions.vue';
 import VehicleMaintenances from '../views/VehicleMaintenances.vue';
+import Users from '../views/Users.vue';
 import { useAuthStore } from '../stores/auth';
 import { pinia } from '../stores/pinia';
 import { canAccessPermission } from '../lib/permissions';
@@ -35,6 +36,7 @@ function getStoredToken() {
 const routes = [
   { path: '/login', component: Login },
   { path: '/', component: Dashboard, meta: { requiresAuth: true, permission: 'dashboard' } },
+  { path: '/users', component: Users, meta: { requiresAuth: true, permission: 'users' } },
   { path: '/payments', component: Payments, meta: { requiresAuth: true, permission: 'payments' } },
   { path: '/drivers', component: Drivers, meta: { requiresAuth: true, permission: 'drivers' } },
   { path: '/vehicles', component: Vehicles, meta: { requiresAuth: true, permission: 'vehicles' } },

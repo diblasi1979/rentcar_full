@@ -24,6 +24,7 @@ auth.fetchUser();
 
     <!-- Botones arriba y centrados -->
     <div class="flex flex-wrap justify-center gap-3 mb-8">
+      <router-link v-if="canAccess('users')" to="/users" class="text-white bg-slate-600 px-6 py-3 rounded-xl shadow-md font-semibold text-lg transition-all duration-200 hover:bg-slate-700 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-slate-300">Usuarios</router-link>
       <router-link v-if="canAccess('drivers')" to="/drivers" class="text-white bg-orange-500 px-6 py-3 rounded-xl shadow-md font-semibold text-lg transition-all duration-200 hover:bg-orange-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-orange-300">Conductores</router-link>
       <router-link v-if="canAccess('vehicles')" to="/vehicles" class="text-white bg-yellow-500 px-6 py-3 rounded-xl shadow-md font-semibold text-lg transition-all duration-200 hover:bg-yellow-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-300">Vehículos</router-link>
       <router-link v-if="canAccess('rentals')" to="/rentals" class="text-white bg-red-400 px-6 py-3 rounded-xl shadow-md font-semibold text-lg transition-all duration-200 hover:bg-red-500 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-200">Alquileres</router-link>

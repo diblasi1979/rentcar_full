@@ -13,6 +13,7 @@ Este documento resume el alcance operativo de cada rol disponible en RentCar.
 | Modulo | Admin | Consultor | Conductor |
 | --- | --- | --- | --- |
 | Dashboard | Ver | Ver | Ver |
+| Usuarios del sistema | Ver / Crear / Editar / Resetear contraseña | Sin acceso | Sin acceso |
 | Conductores | Ver / Crear / Editar / Habilitar / Deshabilitar | Ver / Crear / Editar / Habilitar / Deshabilitar | Sin acceso |
 | Vehiculos | Ver / Crear | Ver / Crear | Sin acceso |
 | Alquileres | Ver / Crear / Editar / Eliminar | Ver / Crear / Editar | Sin acceso |
@@ -26,6 +27,7 @@ Este documento resume el alcance operativo de cada rol disponible en RentCar.
 ### Admin
 - Puede acceder a cualquier vista protegida del sistema.
 - Puede ejecutar cualquier accion de alta, modificacion, activacion, desactivacion, anulacion o eliminacion.
+- Puede dar de alta usuarios del sistema y asignar roles.
 - En backend funciona como superusuario dentro del middleware de roles.
 
 ### Consultor

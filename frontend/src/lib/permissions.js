@@ -2,6 +2,7 @@ export const ADMIN_ROLE = 'admin';
 
 export const VIEW_PERMISSIONS = {
   dashboard: ['admin', 'consultor', 'conductor'],
+  driverPortal: ['conductor'],
   users: ['admin'],
   drivers: ['admin', 'consultor'],
   vehicles: ['admin', 'consultor'],
@@ -13,6 +14,7 @@ export const VIEW_PERMISSIONS = {
 };
 
 export const MANAGE_PERMISSIONS = {
+  driverPortal: ['conductor'],
   users: ['admin'],
   drivers: ['admin', 'consultor'],
   vehicles: ['admin', 'consultor'],

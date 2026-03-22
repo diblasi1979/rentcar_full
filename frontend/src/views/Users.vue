@@ -35,6 +35,14 @@
           </select>
         </div>
 
+        <div v-if="form.role === 'conductor'">
+          <label class="block font-medium mb-1">Conductor vinculado</label>
+          <select v-model="form.driver_id" class="border rounded px-3 py-2 w-full" required>
+            <option value="" disabled>Seleccione un conductor</option>
+            <option v-for="driver in availableDrivers" :key="driver.id" :value="driver.id">{{ driver.name }}{{ driver.email ? ` - ${driver.email}` : '' }}</option>
+          </select>
+        </div>
+
         <div v-if="!editingUser">
           <label class="block font-medium mb-1">Contraseña</label>
           <input v-model="form.password" type="password" class="border rounded px-3 py-2 w-full" minlength="4" required />
@@ -71,6 +79,7 @@
             <th class="p-2 border">Nombre</th>
             <th class="p-2 border">Email</th>
             <th class="p-2 border">Rol</th>
+            <th class="p-2 border">Conductor vinculado</th>
             <th class="p-2 border">Alta</th>
             <th class="p-2 border">Acciones</th>
           </tr>
@@ -81,6 +90,7 @@
             <td class="p-2 border">{{ user.name }}</td>
             <td class="p-2 border">{{ user.email }}</td>
             <td class="p-2 border">{{ user.role }}</td>
+            <td class="p-2 border">{{ user.driver?.name || '-' }}</td>
             <td class="p-2 border">{{ formatDate(user.created_at) }}</td>
             <td class="p-2 border">
               <div class="flex gap-2 justify-center">
@@ -100,7 +110,7 @@
             </td>
           </tr>
           <tr v-if="!users.length">
-            <td class="p-2 border text-center" colspan="6">No hay usuarios registrados.</td>
+            <td class="p-2 border text-center" colspan="7">No hay usuarios registrados.</td>
           </tr>
         </tbody>
       </table>
@@ -143,6 +153,7 @@ import { useAuthStore } from '../stores/auth';
 const auth = useAuthStore();
 const canManageUsers = computed(() => auth.hasManage('users'));
 const users = ref([]);
+const drivers = ref([]);
 const loading = ref(false);
 const status = ref('');
 const error = ref('');
@@ -156,7 +167,18 @@ const form = ref({
   name: '',
   email: '',
   role: 'consultor',
+  driver_id: '',
   password: '',
+});
+
+const availableDrivers = computed(() => {
+  return drivers.value.filter((driver) => {
+    if (editingUser.value && Number(editingUser.value.driver_id) === Number(driver.id)) {
+      return true;
+    }
+
+    return !users.value.some((user) => user.role === 'conductor' && Number(user.driver_id) === Number(driver.id));
+  });
 });
 
 const resetPasswordForm = ref({
@@ -168,6 +190,7 @@ const resetForm = () => {
     name: '',
     email: '',
     role: 'consultor',
+    driver_id: '',
     password: '',
   };
 };
@@ -203,13 +226,21 @@ const loadUsers = async () => {
   users.value = response.data;
 };
 
+const loadDrivers = async () => {
+  const response = await api.get('/drivers');
+  drivers.value = response.data;
+};
+
 const storeUser = async () => {
   loading.value = true;
   status.value = '';
   error.value = '';
 
   try {
-    await api.post('/users', form.value);
+    await api.post('/users', {
+      ...form.value,
+      driver_id: form.value.role === 'conductor' ? Number(form.value.driver_id) : null,
+    });
     status.value = 'Usuario creado correctamente.';
     resetForm();
     await loadUsers();
@@ -234,6 +265,7 @@ const updateUser = async () => {
       name: form.value.name,
       email: form.value.email,
       role: form.value.role,
+      driver_id: form.value.role === 'conductor' ? Number(form.value.driver_id) : null,
     });
     status.value = 'Usuario actualizado correctamente.';
     cancelEdit();
@@ -262,6 +294,7 @@ const startEdit = (user) => {
     name: user.name,
     email: user.email,
     role: user.role,
+    driver_id: user.driver_id || '',
     password: '',
   };
 };
@@ -310,7 +343,7 @@ const submitResetPassword = async () => {
 
 onMounted(async () => {
   try {
-    await loadUsers();
+    await Promise.all([loadUsers(), loadDrivers()]);
   } catch {
     error.value = 'No se pudieron cargar los usuarios.';
   }

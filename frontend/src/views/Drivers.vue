@@ -35,6 +35,13 @@
           <input type="email" v-model="form.email" class="border rounded px-3 py-2 w-full" />
         </div>
         <div>
+          <label class="block font-medium">Vehículo asignado</label>
+          <select v-model="form.assigned_vehicle_id" class="border rounded px-3 py-2 w-full">
+            <option value="">Sin vehículo asignado</option>
+            <option v-for="vehicle in vehicles" :key="vehicle.id" :value="vehicle.id">{{ vehicle.brand }} {{ vehicle.model }} {{ vehicle.plate }}</option>
+          </select>
+        </div>
+        <div>
           <label class="block font-medium">Documentos (hasta 4 archivos, jpg/png/pdf)</label>
           <input type="file" ref="documentInput" multiple accept="image/*,.pdf" @change="onDocumentsChange" class="border rounded px-3 py-2 w-full" />
         </div>
@@ -72,6 +79,7 @@
             <th class="p-2 border">Vencimiento</th>
             <th class="p-2 border">Teléfono</th>
             <th class="p-2 border">Email</th>
+            <th class="p-2 border">Vehículo asignado</th>
             <th class="p-2 border">Documentos</th>
             <th class="p-2 border">Estado</th>
             <th class="p-2 border text-center">Deuda</th>
@@ -87,6 +95,7 @@
             <td class="p-2 border">{{ driver.license_expiration || '-' }}</td>
             <td class="p-2 border">{{ driver.phone || '-' }}</td>
             <td class="p-2 border">{{ driver.email || '-' }}</td>
+            <td class="p-2 border">{{ driver.assigned_vehicle?.plate || '-' }}</td>
             <td class="p-2 border">
               <ul class="list-disc pl-5">
                 <li v-for="doc in driver.documents || []" :key="doc"> <a :href="doc" target="_blank" class="text-blue-600 underline">Ver</a> </li>
@@ -120,7 +129,7 @@
             </td>
           </tr>
           <tr v-if="filteredDrivers.length === 0">
-            <td class="p-2 border text-center" colspan="11">No hay conductores registrados.</td>
+            <td class="p-2 border text-center" colspan="12">No hay conductores registrados.</td>
           </tr>
         </tbody>
       </table>
@@ -181,6 +190,7 @@ import { useAuthStore } from '../stores/auth';
 const auth = useAuthStore();
 const canManageDrivers = computed(() => auth.hasManage('drivers'));
 const drivers = ref([]);
+const vehicles = ref([]);
 const rentals = ref([]);
 const infractions = ref([]);
 const status = ref('');
@@ -197,6 +207,7 @@ const form = ref({
   license_expiration: '',
   phone: '',
   email: '',
+  assigned_vehicle_id: '',
   documents: [],
   enabled: true,
 });
@@ -300,6 +311,7 @@ const editDriver = (driver) => {
     license_expiration: driver.license_expiration,
     phone: driver.phone,
     email: driver.email,
+    assigned_vehicle_id: driver.assigned_vehicle_id || '',
     documents: [], // No se editan documentos en update por ahora
     enabled: driver.enabled,
   };
@@ -314,6 +326,7 @@ const cancelEdit = () => {
     license_expiration: '',
     phone: '',
     email: '',
+    assigned_vehicle_id: '',
     documents: [],
     enabled: true,
   };
@@ -331,6 +344,7 @@ const updateDriver = async () => {
     formData.append('license_expiration', form.value.license_expiration);
     formData.append('phone', form.value.phone);
     formData.append('email', form.value.email);
+    formData.append('assigned_vehicle_id', form.value.assigned_vehicle_id || '');
     formData.append('enabled', form.value.enabled ? 1 : 0);
     if (form.value.documents.length > 0) {
       form.value.documents.slice(0, 4).forEach((file) => {
@@ -364,12 +378,14 @@ const toggleDriver = async (driver) => {
 
 const loadDrivers = async () => {
   try {
-    const [driversResponse, rentalsResponse, infractionsResponse] = await Promise.all([
+    const [driversResponse, vehiclesResponse, rentalsResponse, infractionsResponse] = await Promise.all([
       api.get('/drivers'),
+      api.get('/vehicles'),
       api.get('/rentals'),
       api.get('/traffic-infractions'),
     ]);
     drivers.value = driversResponse.data;
+    vehicles.value = vehiclesResponse.data;
     rentals.value = rentalsResponse.data;
     infractions.value = infractionsResponse.data;
   } catch (err) {
@@ -399,6 +415,7 @@ const storeDriver = async () => {
     formData.append('license_expiration', form.value.license_expiration);
     formData.append('phone', form.value.phone);
     formData.append('email', form.value.email);
+    formData.append('assigned_vehicle_id', form.value.assigned_vehicle_id || '');
 
     if (form.value.documents.length > 0) {
       form.value.documents.slice(0, 4).forEach((file) => {
@@ -420,7 +437,9 @@ const storeDriver = async () => {
       license_expiration: '',
       phone: '',
       email: '',
+      assigned_vehicle_id: '',
       documents: [],
+      enabled: true,
     };
     if (document.querySelector('input[type=file]')) {
       document.querySelector('input[type=file]').value = '';

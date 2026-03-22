@@ -10,13 +10,18 @@ use App\Http\Controllers\Api\InsuranceCoverageController;
 use App\Http\Controllers\Api\TrafficInfractionController;
 use App\Http\Controllers\Api\VehicleMaintenanceController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\DriverPortalController;
 
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/me', function (Illuminate\Http\Request $request) {
-        return $request->user();
-    });
+    Route::get('/me', [AuthController::class, 'me']);
+});
+
+Route::middleware(['auth:sanctum', 'role:conductor'])->group(function () {
+    Route::get('/driver-portal/overview', [DriverPortalController::class, 'overview']);
+    Route::post('/driver-portal/change-password', [DriverPortalController::class, 'changePassword']);
+    Route::post('/driver-portal/service-requests', [DriverPortalController::class, 'storeServiceRequest']);
 });
 
 Route::middleware(['auth:sanctum', 'role:admin,consultor'])->group(function () {

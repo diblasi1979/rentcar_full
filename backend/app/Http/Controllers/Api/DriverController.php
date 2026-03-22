@@ -10,7 +10,7 @@ class DriverController extends Controller
 {
     public function index()
     {
-        return Driver::all();
+        return Driver::with('assignedVehicle')->get();
     }
 
     public function store(Request $request)
@@ -22,6 +22,7 @@ class DriverController extends Controller
             'license_expiration' => 'nullable|date',
             'phone' => 'nullable|string|max:20',
             'email' => 'nullable|email|max:255',
+            'assigned_vehicle_id' => 'nullable|integer|exists:vehicles,id',
             'enabled' => 'boolean',
             'documents' => 'nullable|array|max:4',
             'documents.*' => 'file|mimes:jpg,jpeg,png,gif,pdf|max:20480',
@@ -39,7 +40,7 @@ class DriverController extends Controller
         $driver = Driver::create($data);
         // Retornar URLs completas para frontend
         $driver->documents = collect($documents)->map(fn($path) => asset('storage/'.$path));
-        return response()->json($driver, 201);
+        return response()->json($driver->load('assignedVehicle'), 201);
     }
 
     public function update(Request $request, $id)
@@ -52,6 +53,7 @@ class DriverController extends Controller
             'license_expiration' => 'nullable|date',
             'phone' => 'nullable|string|max:20',
             'email' => 'nullable|email|max:255',
+            'assigned_vehicle_id' => 'nullable|integer|exists:vehicles,id',
             'enabled' => 'boolean',
             'documents' => 'nullable|array|max:4',
             'documents.*' => 'file|mimes:jpg,jpeg,png,gif,pdf|max:20480',
@@ -71,7 +73,7 @@ class DriverController extends Controller
         $driver->update($data);
         // Retornar URLs completas para frontend
         $driver->documents = collect($documents)->map(fn($path) => asset('storage/'.$path));
-        return $driver;
+        return $driver->load('assignedVehicle');
     }
 
     public function toggle($id)
@@ -79,6 +81,6 @@ class DriverController extends Controller
         $driver = Driver::findOrFail($id);
         $driver->enabled = !$driver->enabled;
         $driver->save();
-        return $driver;
+        return $driver->load('assignedVehicle');
     }
 }

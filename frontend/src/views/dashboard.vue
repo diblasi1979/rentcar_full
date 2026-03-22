@@ -274,6 +274,11 @@ onMounted(async () => {
     return;
   }
 
+  if (effectiveRole.value === 'conductor') {
+    await router.replace('/mi-portal');
+    return;
+  }
+
   if (!canViewManagementData.value) {
     return;
   }

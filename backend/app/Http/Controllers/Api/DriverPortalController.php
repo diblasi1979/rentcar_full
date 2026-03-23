@@ -7,9 +7,11 @@ use App\Models\InsuranceCoverage;
 use App\Models\Rental;
 use App\Models\ServiceRequest;
 use App\Models\TrafficInfraction;
+use App\Models\VehicleMaintenance;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class DriverPortalController extends Controller
@@ -56,7 +58,7 @@ class DriverPortalController extends Controller
                 ->first();
         }
 
-        $serviceRequests = ServiceRequest::with(['vehicle', 'rental'])
+        $serviceRequests = ServiceRequest::with(['vehicle', 'rental', 'vehicleMaintenance'])
             ->where('driver_id', $driver->id)
             ->orderByDesc('created_at')
             ->get();
@@ -175,16 +177,27 @@ class DriverPortalController extends Controller
             'description' => ['required', 'string', 'max:2000'],
         ]);
 
-        $serviceRequest = ServiceRequest::create([
-            'driver_id' => $driver->id,
-            'rental_id' => $activeRental?->id,
-            'vehicle_id' => $vehicleId,
-            'title' => $data['title'],
-            'description' => $data['description'],
-            'status' => 'PENDIENTE',
-        ]);
+        $serviceRequest = DB::transaction(function () use ($driver, $activeRental, $vehicleId, $data) {
+            $maintenance = VehicleMaintenance::create([
+                'vehicle_id' => $vehicleId,
+                'maintenance_date' => now()->toDateString(),
+                'type' => $data['title'],
+                'description' => $data['description'],
+                'status' => 'PENDIENTE',
+            ]);
 
-        return response()->json($serviceRequest->load(['vehicle', 'rental']), 201);
+            return ServiceRequest::create([
+                'driver_id' => $driver->id,
+                'rental_id' => $activeRental?->id,
+                'vehicle_id' => $vehicleId,
+                'vehicle_maintenance_id' => $maintenance->id,
+                'title' => $data['title'],
+                'description' => $data['description'],
+                'status' => 'PENDIENTE',
+            ]);
+        });
+
+        return response()->json($serviceRequest->load(['vehicle', 'rental', 'vehicleMaintenance']), 201);
     }
 
     private function calculateExpectedAmount(Rental $rental): float

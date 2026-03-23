@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class VehicleMaintenance extends Model
 {
@@ -35,6 +36,11 @@ class VehicleMaintenance extends Model
     public function vehicle()
     {
         return $this->belongsTo(Vehicle::class);
+    }
+
+    public function serviceRequest(): HasOne
+    {
+        return $this->hasOne(ServiceRequest::class);
     }
 
     public function getReceiptUrlAttribute(): ?string

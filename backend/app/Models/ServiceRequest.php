@@ -14,6 +14,7 @@ class ServiceRequest extends Model
         'driver_id',
         'rental_id',
         'vehicle_id',
+        'vehicle_maintenance_id',
         'title',
         'description',
         'status',
@@ -32,5 +33,10 @@ class ServiceRequest extends Model
     public function vehicle(): BelongsTo
     {
         return $this->belongsTo(Vehicle::class);
+    }
+
+    public function vehicleMaintenance(): BelongsTo
+    {
+        return $this->belongsTo(VehicleMaintenance::class);
     }
 }

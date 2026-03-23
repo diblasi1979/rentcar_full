@@ -26,18 +26,31 @@ class VehicleMaintenanceController extends Controller
 
     public function update(Request $request, $id)
     {
-        $maintenance = VehicleMaintenance::findOrFail($id);
+        $maintenance = VehicleMaintenance::with('serviceRequest')->findOrFail($id);
         $data = $this->validateRequest($request, true);
         $data = $this->storeReceipt($request, $data, $maintenance);
 
         $maintenance->update($data);
+
+        if ($maintenance->serviceRequest) {
+            $maintenance->serviceRequest->update([
+                'status' => $maintenance->status === 'REALIZADO' ? 'RESUELTA' : 'PENDIENTE',
+            ]);
+        }
 
         return response()->json($maintenance->fresh('vehicle'));
     }
 
     public function destroy($id)
     {
-        $maintenance = VehicleMaintenance::findOrFail($id);
+        $maintenance = VehicleMaintenance::with('serviceRequest')->findOrFail($id);
+
+        if ($maintenance->serviceRequest) {
+            $maintenance->serviceRequest->update([
+                'vehicle_maintenance_id' => null,
+                'status' => 'PENDIENTE',
+            ]);
+        }
 
         if ($maintenance->receipt) {
             Storage::disk('public')->delete($maintenance->receipt);

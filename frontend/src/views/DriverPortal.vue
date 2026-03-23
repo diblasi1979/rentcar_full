@@ -1,23 +1,23 @@
 <template>
-  <div class="min-h-0 flex-1 overflow-y-auto bg-[radial-gradient(circle_at_top,_rgba(14,165,233,0.15),_transparent_28%),linear-gradient(135deg,_#f8fafc_0%,_#e2e8f0_45%,_#cbd5e1_100%)] p-6">
-    <div class="mx-auto max-w-6xl space-y-6">
-      <div class="flex flex-col gap-4 rounded-[28px] border border-white/70 bg-white/75 p-6 shadow-[0_20px_60px_rgba(15,23,42,0.12)] backdrop-blur md:flex-row md:items-center md:justify-between">
+  <div class="min-h-0 flex-1 overflow-y-auto bg-[radial-gradient(circle_at_top,_rgba(14,165,233,0.15),_transparent_28%),linear-gradient(135deg,_#f8fafc_0%,_#e2e8f0_45%,_#cbd5e1_100%)] p-4 sm:p-6">
+    <div class="mx-auto max-w-6xl space-y-4 sm:space-y-6">
+      <div class="flex flex-col gap-4 rounded-[28px] border border-white/70 bg-white/75 p-4 shadow-[0_20px_60px_rgba(15,23,42,0.12)] backdrop-blur sm:p-6 md:flex-row md:items-center md:justify-between">
         <div>
           <p class="text-sm font-semibold uppercase tracking-[0.35em] text-sky-700">Portal del conductor</p>
-          <h1 class="mt-2 text-3xl font-black text-slate-900">{{ overview.driver?.name || auth.sessionUser?.name || 'Mi cuenta' }}</h1>
+          <h1 class="mt-2 text-2xl font-black text-slate-900 sm:text-3xl">{{ overview.driver?.name || auth.sessionUser?.name || 'Mi cuenta' }}</h1>
           <p class="mt-2 max-w-2xl text-sm text-slate-600">
             Desde aca podes revisar tu alquiler activo, tu saldo pendiente, tus infracciones, descargar tu documentacion y generar solicitudes de servicio.
           </p>
         </div>
 
-        <div class="flex flex-wrap gap-3">
-          <button type="button" class="rounded-2xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-slate-300 transition hover:-translate-y-0.5 hover:bg-slate-800" @click="openBalanceModal">
+        <div class="grid w-full gap-3 sm:flex sm:w-auto sm:flex-wrap">
+          <button type="button" class="w-full rounded-2xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-slate-300 transition hover:-translate-y-0.5 hover:bg-slate-800 sm:w-auto" @click="openBalanceModal">
             Ver saldo pendiente
           </button>
-          <button type="button" class="rounded-2xl bg-amber-500 px-5 py-3 text-sm font-semibold text-slate-950 shadow-lg shadow-amber-200 transition hover:-translate-y-0.5 hover:bg-amber-400" @click="openInfractionsModal">
+          <button type="button" class="w-full rounded-2xl bg-amber-500 px-5 py-3 text-sm font-semibold text-slate-950 shadow-lg shadow-amber-200 transition hover:-translate-y-0.5 hover:bg-amber-400 sm:w-auto" @click="openInfractionsModal">
             Ver infracciones
           </button>
-          <button type="button" class="rounded-2xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:-translate-y-0.5 hover:border-slate-400 hover:text-slate-900" @click="handleLogout">
+          <button type="button" class="w-full rounded-2xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:-translate-y-0.5 hover:border-slate-400 hover:text-slate-900 sm:w-auto" @click="handleLogout">
             Cerrar sesion
           </button>
         </div>
@@ -27,7 +27,7 @@
         {{ pageError }}
       </div>
 
-      <div class="grid gap-4 md:grid-cols-4">
+      <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <div class="rounded-[24px] border border-white/70 bg-white/80 p-5 shadow-lg shadow-slate-200/80">
           <p class="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Saldo total</p>
           <p class="mt-3 text-3xl font-black text-slate-900">{{ formatCurrency(balance.total) }}</p>
@@ -51,11 +51,11 @@
       </div>
 
       <div class="grid gap-6 xl:grid-cols-[1.3fr_0.7fr]">
-        <section class="rounded-[28px] border border-white/70 bg-white/85 p-6 shadow-[0_20px_60px_rgba(15,23,42,0.1)]">
+        <section class="rounded-[28px] border border-white/70 bg-white/85 p-4 shadow-[0_20px_60px_rgba(15,23,42,0.1)] sm:p-6">
           <div class="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
             <div>
               <p class="text-xs font-semibold uppercase tracking-[0.35em] text-sky-700">Tu alquiler actual</p>
-              <h2 class="mt-2 text-2xl font-black text-slate-900">{{ displayVehicle.brand || 'Vehiculo sin datos' }} {{ displayVehicle.model || '' }}</h2>
+              <h2 class="mt-2 text-xl font-black text-slate-900 sm:text-2xl">{{ displayVehicle.brand || 'Vehiculo sin datos' }} {{ displayVehicle.model || '' }}</h2>
               <p class="mt-1 text-sm text-slate-500">Patente {{ displayVehicle.plate || '-' }}</p>
             </div>
             <span class="inline-flex w-fit rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em]" :class="activeRental.active ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-200 text-slate-700'">
@@ -63,7 +63,7 @@
             </span>
           </div>
 
-          <div class="mt-6 grid gap-4 md:grid-cols-2">
+          <div class="mt-6 grid gap-4 sm:grid-cols-2">
             <div class="rounded-2xl bg-slate-50 p-4">
               <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Tipo de alquiler</p>
               <p class="mt-2 text-lg font-bold text-slate-900">{{ formatRentalType(activeRental.type) }}</p>
@@ -82,14 +82,14 @@
             </div>
           </div>
 
-          <div class="mt-6 flex flex-wrap gap-3">
-            <a v-if="activeRental.contract_pdf_url" :href="activeRental.contract_pdf_url" target="_blank" rel="noreferrer" class="rounded-2xl bg-sky-600 px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-sky-700">
+          <div class="mt-6 grid gap-3 sm:flex sm:flex-wrap">
+            <a v-if="activeRental.contract_pdf_url" :href="activeRental.contract_pdf_url" target="_blank" rel="noreferrer" class="rounded-2xl bg-sky-600 px-5 py-3 text-center text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-sky-700">
               Descargar contrato
             </a>
-            <a v-if="insurance.policy_pdf_url" :href="insurance.policy_pdf_url" target="_blank" rel="noreferrer" class="rounded-2xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-emerald-700">
+            <a v-if="insurance.policy_pdf_url" :href="insurance.policy_pdf_url" target="_blank" rel="noreferrer" class="rounded-2xl bg-emerald-600 px-5 py-3 text-center text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-emerald-700">
               Descargar poliza
             </a>
-            <a v-if="insurance.credential_image_url" :href="insurance.credential_image_url" target="_blank" rel="noreferrer" class="rounded-2xl bg-indigo-600 px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-indigo-700">
+            <a v-if="insurance.credential_image_url" :href="insurance.credential_image_url" target="_blank" rel="noreferrer" class="rounded-2xl bg-indigo-600 px-5 py-3 text-center text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-indigo-700">
               Descargar credencial
             </a>
           </div>
@@ -105,7 +105,7 @@
               </span>
             </div>
 
-            <div class="mt-4 grid gap-3 md:grid-cols-2">
+            <div class="mt-4 grid gap-3 sm:grid-cols-2">
               <div>
                 <p class="text-sm font-semibold text-slate-600">Poliza</p>
                 <p class="text-sm text-slate-900">{{ insurance.policy_number || '-' }}</p>
@@ -119,7 +119,7 @@
         </section>
 
         <section class="space-y-6">
-          <div class="rounded-[28px] border border-white/70 bg-white/85 p-6 shadow-[0_20px_60px_rgba(15,23,42,0.1)]">
+          <div class="rounded-[28px] border border-white/70 bg-white/85 p-4 shadow-[0_20px_60px_rgba(15,23,42,0.1)] sm:p-6">
             <p class="text-xs font-semibold uppercase tracking-[0.35em] text-sky-700">Cambiar contrasena</p>
             <form class="mt-5 space-y-4" @submit.prevent="submitPasswordChange">
               <div>
@@ -142,7 +142,7 @@
             </form>
           </div>
 
-          <div class="rounded-[28px] border border-white/70 bg-white/85 p-6 shadow-[0_20px_60px_rgba(15,23,42,0.1)]">
+          <div class="rounded-[28px] border border-white/70 bg-white/85 p-4 shadow-[0_20px_60px_rgba(15,23,42,0.1)] sm:p-6">
             <p class="text-xs font-semibold uppercase tracking-[0.35em] text-sky-700">Nueva solicitud de servicio</p>
             <form class="mt-5 space-y-4" @submit.prevent="submitServiceRequest">
               <div>
@@ -163,18 +163,39 @@
         </section>
       </div>
 
-      <section class="rounded-[28px] border border-white/70 bg-white/85 p-6 shadow-[0_20px_60px_rgba(15,23,42,0.1)]">
+      <section class="rounded-[28px] border border-white/70 bg-white/85 p-4 shadow-[0_20px_60px_rgba(15,23,42,0.1)] sm:p-6">
         <div class="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
           <div>
             <p class="text-xs font-semibold uppercase tracking-[0.35em] text-sky-700">Mis solicitudes</p>
-            <h2 class="mt-2 text-2xl font-black text-slate-900">Historial de solicitudes de servicio</h2>
+            <h2 class="mt-2 text-xl font-black text-slate-900 sm:text-2xl">Historial de solicitudes de servicio</h2>
           </div>
           <button type="button" class="w-fit rounded-2xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900" @click="loadOverview">
             Actualizar
           </button>
         </div>
 
-        <div class="mt-5 overflow-x-auto">
+        <div class="mt-5 space-y-3 md:hidden">
+          <article v-for="request in serviceRequests" :key="`mobile-request-${request.id}`" class="rounded-2xl border border-slate-200 bg-slate-50 p-4 shadow-sm">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">{{ formatDate(request.created_at, true) }}</p>
+                <h3 class="mt-2 font-bold text-slate-900">{{ request.title }}</h3>
+              </div>
+              <span class="rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em]" :class="getStatusBadgeClass(request.status)">
+                {{ request.status }}
+              </span>
+            </div>
+            <p class="mt-3 text-sm text-slate-600">{{ request.description }}</p>
+            <div class="mt-3 rounded-xl bg-white px-3 py-2 text-sm text-slate-600">
+              <span class="font-semibold text-slate-900">Vehiculo:</span> {{ request.vehicle?.plate || '-' }}
+            </div>
+          </article>
+          <div v-if="!serviceRequests.length" class="rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-4 py-8 text-center text-sm text-slate-500">
+            Todavia no generaste solicitudes de servicio.
+          </div>
+        </div>
+
+        <div class="mt-5 hidden overflow-x-auto md:block">
           <table class="min-w-full overflow-hidden rounded-2xl">
             <thead class="bg-slate-900 text-left text-xs uppercase tracking-[0.2em] text-white">
               <tr>
@@ -208,18 +229,18 @@
     </div>
 
     <div v-if="showBalanceModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 p-4">
-      <div class="max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-[28px] bg-white p-6 shadow-2xl">
-        <div class="flex items-start justify-between gap-4">
+      <div class="max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-[28px] bg-white p-4 shadow-2xl sm:p-6">
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <p class="text-xs font-semibold uppercase tracking-[0.35em] text-sky-700">Saldo pendiente</p>
-            <h3 class="mt-2 text-2xl font-black text-slate-900">Detalle de deuda</h3>
+            <h3 class="mt-2 text-xl font-black text-slate-900 sm:text-2xl">Detalle de deuda</h3>
           </div>
-          <button type="button" class="rounded-full border border-slate-200 px-3 py-1 text-sm font-semibold text-slate-600 transition hover:border-slate-300 hover:text-slate-900" @click="showBalanceModal = false">
+          <button type="button" class="w-full rounded-full border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-600 transition hover:border-slate-300 hover:text-slate-900 sm:w-auto sm:py-1" @click="showBalanceModal = false">
             Cerrar
           </button>
         </div>
 
-        <div class="mt-6 grid gap-6 md:grid-cols-2">
+        <div class="mt-6 grid gap-6 lg:grid-cols-2">
           <div>
             <div class="mb-3 flex items-center justify-between">
               <h4 class="text-lg font-bold text-slate-900">Deuda de alquiler</h4>
@@ -234,7 +255,7 @@
                   </div>
                   <span class="text-sm font-semibold text-rose-700">{{ formatCurrency(item.debt) }}</span>
                 </div>
-                <div class="mt-3 grid gap-2 text-sm text-slate-600 md:grid-cols-2">
+                <div class="mt-3 grid gap-2 text-sm text-slate-600 sm:grid-cols-2">
                   <p>Esperado: <span class="font-semibold text-slate-900">{{ formatCurrency(item.expected) }}</span></p>
                   <p>Pagado: <span class="font-semibold text-slate-900">{{ formatCurrency(item.paid) }}</span></p>
                 </div>
@@ -276,18 +297,40 @@
     </div>
 
     <div v-if="showInfractionsModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 p-4">
-      <div class="max-h-[90vh] w-full max-w-5xl overflow-y-auto rounded-[28px] bg-white p-6 shadow-2xl">
-        <div class="flex items-start justify-between gap-4">
+      <div class="max-h-[90vh] w-full max-w-5xl overflow-y-auto rounded-[28px] bg-white p-4 shadow-2xl sm:p-6">
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <p class="text-xs font-semibold uppercase tracking-[0.35em] text-amber-600">Historial de infracciones</p>
-            <h3 class="mt-2 text-2xl font-black text-slate-900">Tus infracciones</h3>
+            <h3 class="mt-2 text-xl font-black text-slate-900 sm:text-2xl">Tus infracciones</h3>
           </div>
-          <button type="button" class="rounded-full border border-slate-200 px-3 py-1 text-sm font-semibold text-slate-600 transition hover:border-slate-300 hover:text-slate-900" @click="showInfractionsModal = false">
+          <button type="button" class="w-full rounded-full border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-600 transition hover:border-slate-300 hover:text-slate-900 sm:w-auto sm:py-1" @click="showInfractionsModal = false">
             Cerrar
           </button>
         </div>
 
-        <div class="mt-6 overflow-x-auto">
+        <div class="mt-6 space-y-3 md:hidden">
+          <article v-for="infraction in infractions" :key="`mobile-infraction-${infraction.id}`" class="rounded-2xl border border-slate-200 bg-slate-50 p-4 shadow-sm">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">{{ formatDate(infraction.infraction_date, true) }}</p>
+                <h3 class="mt-2 font-bold text-slate-900">{{ infraction.type }}</h3>
+                <p class="mt-1 text-sm text-slate-500">{{ infraction.vehicle?.plate || '-' }}</p>
+              </div>
+              <span class="rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em]" :class="infraction.status === 'PAGADA' ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'">
+                {{ infraction.status }}
+              </span>
+            </div>
+            <div class="mt-3 grid gap-2 text-sm text-slate-600">
+              <p><span class="font-semibold text-slate-900">Lugar:</span> {{ infraction.location || '-' }}</p>
+              <p><span class="font-semibold text-slate-900">Monto:</span> {{ formatCurrency(infraction.amount) }}</p>
+            </div>
+          </article>
+          <div v-if="!infractions.length" class="rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-4 py-8 text-center text-sm text-slate-500">
+            No registras infracciones.
+          </div>
+        </div>
+
+        <div class="mt-6 hidden overflow-x-auto md:block">
           <table class="min-w-full overflow-hidden rounded-2xl">
             <thead class="bg-amber-500 text-left text-xs uppercase tracking-[0.2em] text-slate-950">
               <tr>
